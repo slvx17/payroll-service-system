@@ -1,0 +1,10 @@
+package com.lawencon.pss_app.service;
+
+import java.util.Optional;
+
+import com.lawencon.pss_app.model.User;
+
+public interface UserService {
+
+	Optional<User> getByEmail(String email);
+}

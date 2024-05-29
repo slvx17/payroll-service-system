@@ -1,0 +1,74 @@
+package com.lawencon.pss_app.controller;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.lawencon.pss_app.dto.user.LoginReqDto;
+import com.lawencon.pss_app.dto.user.LoginResDto;
+import com.lawencon.pss_app.dto.user.UserRegisReqDto;
+import com.lawencon.pss_app.dto.user.UserRegisResDto;
+import com.lawencon.pss_app.model.User;
+import com.lawencon.pss_app.service.JwtService;
+import com.lawencon.pss_app.service.UserService;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+	
+	private final UserService userService;
+	private final AuthenticationManager authenticationManager;
+	private final JwtService jwtService;
+	
+	public UserController(UserService userService, AuthenticationManager authenticationManager, JwtService jwtService) {
+		this.userService = userService;
+		this.authenticationManager = authenticationManager;
+		this.jwtService = jwtService;
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<LoginResDto> loginResDto(@RequestBody LoginReqDto param){
+		
+		Authentication auth = new UsernamePasswordAuthenticationToken(param.getEmail(), param.getPassword());
+	    authenticationManager.authenticate(auth);
+	   
+		
+		final Optional<User> userOptional = userService.getByEmail(param.getEmail());
+
+        final Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.add(Calendar.HOUR_OF_DAY, 1);
+
+        final Map<String, Object> claims = new HashMap<>();
+        claims.put("exp", cal.getTime());
+        claims.put("id", userOptional.get().getId());
+		
+		LoginResDto result = new LoginResDto();
+		result.setToken(jwtService.generateJwt(claims));
+		result.setEmail(userOptional.get().getEmail());
+		
+		return new ResponseEntity<LoginResDto>(result, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/register")
+    public ResponseEntity<UserRegisResDto> registerUser(@RequestBody UserRegisReqDto reqDto) {
+        try {
+            UserRegisResDto response = userService.createUser(reqDto);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(new UserRegisResDto(null, e.getMessage()));
+        }
+    }
+}

@@ -1,0 +1,34 @@
+package com.lawencon.pss_app.constant;
+
+import com.lawencon.pss-app.constant.RoleType;
+
+public enum RoleEnum {
+    SUPER_ADMIN("Super Admin", "SA"),
+    PAYROLL_SERVICE("Payroll Service", "PS"),
+    CLIENT("Client", "CL");
+
+    private final String roleName;
+    private final String roleCode;
+
+    RoleEnum(String roleName, String roleCode) {
+        this.roleName = roleName;
+        this.roleCode = roleCode;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public String getRoleCode() {
+        return roleCode;
+    }
+    
+    public static RoleEnum getById(Long id) {
+        for (RoleEnum role : values()) {
+            if (role.ordinal() + 1 == id) { 
+                return role;
+            }
+        }
+        return null;
+    }
+}
