@@ -1,0 +1,31 @@
+<div class="flex align-items-center justify-content-center h-screen">
+    <p-card header="Login" subheader="">
+      <form [formGroup]="loginReq" id="loginForm" (ngSubmit)="onSubmit()">
+        <div class="flex flex-column">
+          <span class="p-input-icon-left my-2">
+            <i class="pi pi-envelope"></i>
+            <input id="email" formControlName="email" type="email" pInputText placeholder="Email address">
+          </span>
+          <div *ngIf="loginReq.controls['email'].invalid && loginReq.controls['email'].touched" class="flex align-items-center justify-content-end">
+            <small *ngIf="loginReq.controls['email'].errors?.['required']" class="p-error block flex align-items-center justify-content-end">Email is required.</small>
+          </div>
+          <span class="p-input-icon-left my-2">
+            <i class="pi pi-key"></i>
+            <input id="password" formControlName="password" type="password" pInputText placeholder="Password">
+          </span>
+          <div *ngIf="loginReq.controls['password'].invalid && loginReq.controls['password'].touched" class="flex align-items-center justify-content-end">
+            <small *ngIf="loginReq.controls['password'].errors?.['required']" class="p-error block flex align-items-center justify-content-end">Password is required.</small>
+            <small *ngIf="loginReq.controls['password'].errors?.['minlength']" class="p-error block flex align-items-center justify-content-end">Password must be at least 10 characters.</small>
+          </div>
+        </div>
+      </form>
+      <p-divider></p-divider>
+      <ng-template pTemplate="footer">
+        <div class="flex align-items-center justify-content-center">
+          <button pButton type="submit" form="loginForm" label="Submit" [loading]="loading"></button>
+        </div>
+      </ng-template>
+    </p-card>
+  </div>
+  <p-toast></p-toast>
+  
