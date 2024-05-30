@@ -2,7 +2,7 @@ package com.lawencon.pss_app.dto.user;
 
 public class LoginResDto {
 
-	private String message;
+	private String role;
 	private String token;
 	private String email;
 
@@ -31,12 +31,12 @@ public class LoginResDto {
 		this.token = token;
 	}
 	
-	public String getMessage() {
-		return message;
+	public String getRole() {
+		return role;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 }

@@ -21,13 +21,14 @@ import { MessageService } from 'primeng/api';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+
     CardModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
     RouterModule,
     ToastModule,
-    DividerModule
+    DividerModule,
   ],
   providers: [MessageService]
 })
@@ -45,19 +46,17 @@ export class LoginComponent {
     onSubmit() {
         this.submitted = true;
 
-        // Stop if form is invalid
         if (this.loginReq.invalid) {
             return;
         }
-
         this.loading = true;
+
         const loginReqRaw = this.loginReq.getRawValue();
-        console.log(loginReqRaw);
         this.authService.login(loginReqRaw).subscribe({
             next: (res) => {
-                console.log(res);
-                this.authService.saveToken(res.token);
-                this.router.navigate(['/dashboard']);
+                this.authService.saveLocal(res.token, res.role, res.email);
+                // console.log(res.role);
+                this.router.navigate([`${res.role}/dashboard`]);
                 this.loading = false;
             },
             error: (err) => {

@@ -12,10 +12,13 @@ export class AuthService {
     }
 
     login(dto: LoginReqDto){
-        return this.http.post<LoginResDto>('http://192.168.40.42:8080/users/login', dto)
+        return this.http.post<LoginResDto>('http://localhost:8080/login', dto)
     }
 
-    saveToken(token: string){
+    saveLocal(token: string, role: string, email: string){
         localStorage.setItem("token", token)
+        localStorage.setItem("role", role)
+        localStorage.setItem("email", email)
     }
+
 }

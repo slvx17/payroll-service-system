@@ -1,0 +1,15 @@
+/* src/app/navbar/navbar.component.css */
+.p-menubar {
+    background-color: #f8f9fa;
+    width: 100%;
+}
+
+.p-menuitem-link {
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.p-menuitem {
+    margin: 0 1rem;
+}

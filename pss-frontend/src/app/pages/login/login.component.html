@@ -1,4 +1,4 @@
-<div class="flex align-items-center justify-content-center h-screen">
+<div class="flex justify-content-center align-items-center w-6">
     <p-card header="Login" subheader="">
       <form [formGroup]="loginReq" id="loginForm" (ngSubmit)="onSubmit()">
         <div class="flex flex-column">
@@ -27,5 +27,6 @@
       </ng-template>
     </p-card>
   </div>
+
   <p-toast></p-toast>
-  
+<router-outlet></router-outlet>
