@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <p-floatLabel>
+        <input type="text" id="username" pInputText formControlName="userName" placeholder=" ">
+        <label for="userName">User Name</label>
+      </p-floatLabel>
+      
+      <p-floatLabel>
+        <input type="email" id="Email" pInputText formControlName="userEmail" placeholder=" ">
+        <label for="userEmail">User Email</label>
+      </p-floatLabel>
+      
+      <p-floatLabel>
+        <input type="password" id="password" pInputText formControlName="password" placeholder=" ">
+        <label for="password">Password</label>
+      </p-floatLabel>
+      
+        <!-- <p-dropdown [options]="roles" formControlName="roleId" placeholder=" " filter="true" showClear="true">
+          <label for="roleId">Role</label>
+        </p-dropdown> -->
+
+      <p-dropdown 
+        formControlName="roleId" 
+        [options]="roles"
+        placeholder="Select a role" />
+      
+      <button type="submit" pButton label="Submit" class="p-mt-2"></button>
+    </div>
+  </form>
+  

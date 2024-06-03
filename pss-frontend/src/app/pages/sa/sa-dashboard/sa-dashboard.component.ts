@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MenubarModule} from 'primeng/menubar'
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 @Component({
@@ -9,6 +10,7 @@ import {MenubarModule} from 'primeng/menubar'
   imports: [
     CommonModule,
     MenubarModule,
+    NavbarComponent,
   ],
   templateUrl: './sa-dashboard.component.html',
   styleUrl: './sa-dashboard.component.css'

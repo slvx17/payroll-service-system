@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
       { label: 'Notifications', icon: 'pi pi-bell', routerLink: ['/notifications'] },
       {
         label: "Profile", icon:"pi pi-user", items: [
-          { label: 'User Settings', icon: 'pi pi-cog', routerLink: ['/profile'], styleClass: 'ml-auto' },
+          { label: 'User Settings', icon: 'pi pi-cog', routerLink: ['/setting'], styleClass: 'ml-auto' },
           { label: 'Sign out', icon: 'pi pi-sign-out', 
           command: (event) => {
             this.authService.logout();
@@ -54,13 +54,13 @@ export class NavbarComponent implements OnInit {
 
   getItemsByRole(role: string): MenuItem[] {
     const commonItems: MenuItem[] = [
-      { icon: 'pi pi-home', routerLink: [`${role}/dashboard`] },
+      { icon: 'pi pi-home', routerLink: [`/${role}/dashboard`] },
     ];
 
     const saItems: MenuItem[] = [
       ...commonItems, 
-      { label: 'Create User', icon: 'pi pi-user-plus', routerLink: ['/create-user'] },
-      { label: 'Assign Client-PS', icon: 'pi pi-users', routerLink: ['/assign-client-ps'] },
+      { label: 'Create User', icon: 'pi pi-user-plus', routerLink: ['/SA/createuser'] },
+      { label: 'Assign Client-PS', icon: 'pi pi-users', routerLink: ['/SA/assignuser'] },
     ]
 
     const psItems: MenuItem[] = [

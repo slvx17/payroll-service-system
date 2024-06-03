@@ -12,7 +12,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
   imports: [
     CommonModule,
     NavbarComponent,
-    FullCalendarModule
+    FullCalendarModule,
+    NavbarComponent,
   ],
   templateUrl: './cl-dashboard.component.html',
   styleUrl: './cl-dashboard.component.css'

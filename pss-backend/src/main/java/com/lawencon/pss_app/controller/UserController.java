@@ -57,7 +57,7 @@ public class UserController {
 		
 		LoginResDto result = new LoginResDto();
 		result.setToken(jwtService.generateJwt(claims));
-		result.setEmail(userOptional.get().getEmail());
+		result.setId(userOptional.get().getId());
 		result.setRole(userOptional.get().getRole().getRoleCode());		
 		return new ResponseEntity<LoginResDto>(result, HttpStatus.CREATED);
 	}
