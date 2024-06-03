@@ -1,7 +1,8 @@
+import { AuthService } from './../../service/auth.service';
 import { UserService } from './../../service/user.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenubarModule } from 'primeng/menubar';
 
@@ -24,7 +25,7 @@ export class NavbarComponent implements OnInit {
 
   userRole: string = "" ;
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService, private authService: AuthService){}
   
   ngOnInit(): void {
     
@@ -37,7 +38,12 @@ export class NavbarComponent implements OnInit {
       {
         label: "Profile", icon:"pi pi-user", items: [
           { label: 'User Settings', icon: 'pi pi-cog', routerLink: ['/profile'], styleClass: 'ml-auto' },
-          { label: 'Sign out', icon: 'pi pi-sign-out', routerLink: ['/sign-out'], styleClass: 'ml-auto' },
+          { label: 'Sign out', icon: 'pi pi-sign-out', 
+          command: (event) => {
+            this.authService.logout();
+          },
+          // routerLink: ['/login'], 
+          styleClass: 'ml-auto' },
         ]
       }
     ]

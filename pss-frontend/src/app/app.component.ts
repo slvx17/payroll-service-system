@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router } from '@angular/router';
 import { NavbarComponent } from './pages/navbar/navbar.component';
 
 @Component({
@@ -12,6 +12,14 @@ import { NavbarComponent } from './pages/navbar/navbar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title="app"
+  hide = false
+
+  constructor(private router: Router){}
+
+  ngOnInit(): void {
+    console.log(this.router.url=='/')
+    if(this.router.url=='/')this.hide=true;
+  }
 }
