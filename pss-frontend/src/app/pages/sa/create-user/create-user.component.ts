@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserService } from './../../../service/user.service';
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../navbar/navbar.component';
@@ -7,8 +8,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angul
 import { DropdownModule } from 'primeng/dropdown';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { SelectItem } from 'primeng/api';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { UserRegisReqDto } from '../../../dto/user/register.dto';
 
 @Component({
   selector: 'app-create-user',
@@ -29,7 +28,7 @@ export class CreateUserComponent implements OnInit {
   userForm!: FormGroup;
   roles: SelectItem[] = [];
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.userForm = this.fb.group({
@@ -55,6 +54,7 @@ export class CreateUserComponent implements OnInit {
       this.userService.registerUser(this.userForm.value).subscribe({
         next: (response) => {
           console.log('Registration successful', response);
+          this.router.navigate(["/SA/dashboard"]);
         },
         error: (error) => {
           console.error('Registration failed', error);

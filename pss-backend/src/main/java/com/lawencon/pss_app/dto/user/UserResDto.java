@@ -6,7 +6,6 @@ public class UserResDto {
     private String email;
     
 	public UserResDto(Long id, String username, String email) {
-		super();
 		this.id = id;
 		this.username = username;
 		this.email = email;
