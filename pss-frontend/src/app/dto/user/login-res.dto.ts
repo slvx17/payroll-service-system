@@ -1,5 +1,5 @@
 export interface LoginResDto {
     token: string
-    email: string
+    id: number
     role: string
 }

@@ -16,7 +16,8 @@ import { CalendarResDto } from '../../../dto/calendar/calendar-res.dto';
   imports: [
     CommonModule,
     NavbarComponent,
-    FullCalendarModule
+    FullCalendarModule,
+    NavbarComponent,
   ],
   templateUrl: './cl-dashboard.component.html',
   styleUrl: './cl-dashboard.component.css'

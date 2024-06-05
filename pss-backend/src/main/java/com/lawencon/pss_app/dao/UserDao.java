@@ -12,6 +12,7 @@ public interface UserDao {
 	User findByEmail(String email);
 	List<User> findAll();
 	List<User> findByRole(Role role);
+	User findByEmailAndRole(String email, Role role);
 	User update(User user);
 	void delete(User user);
 }
