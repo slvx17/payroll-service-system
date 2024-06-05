@@ -8,6 +8,9 @@ import { SelectItem } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClient } from '@angular/common/http';
 import { AssignUserResDto } from '../../../dto/assignment/assign-user-res.dto';
+import { UserResDto } from '../../../dto/user/user.dto';
+import { AssignmentService } from '../../../service/assignment.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assign-user',
@@ -18,58 +21,86 @@ import { AssignUserResDto } from '../../../dto/assignment/assign-user-res.dto';
     StepperModule,
     ButtonModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
   ],
   templateUrl: './assign-user.component.html',
   styleUrl: './assign-user.component.css'
 })
+
+
 export class AssignUserComponent implements OnInit {
 
+  private DEFAULT_USER: UserResDto = {
+    id: 0,
+    username: 'No Selection',
+    email: 'noemail@domain.com'
+  };
+
   searchTerm: string = '';
-  searchResult: { username: string, id: number } | null = null;
+  searchResult: UserResDto | null = null;
   searchMade: boolean = false;
 
   users: SelectItem[] = [];
-  selectedClientUser: any = null;
-  selectedPayrollServiceUser: any;
+  selectedClientUser!: UserResDto;
+  selectedPayrollServiceUser!: UserResDto;
+  selectedPayrollServiceUserId!: number;
+  assignmentCreated: boolean = false;
+  // currentStepIndex: number = 0;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private assignmentService: AssignmentService, private router: Router) { }
 
   ngOnInit(): void {
-    // Simulated user data for dropdowns
-    this.users = [
-      { label: 'John Doe', value: { id: 1, name: 'John Doe', role: 'Client' }},
-      { label: 'Jane Smith', value: { id: 2, name: 'Jane Smith', role: 'Client' }},
-      { label: 'Jim Brown', value: { id: 3, name: 'Jim Brown', role: 'Payroll Service' }}
-    ];
+    this.assignmentService.getAllPs().subscribe(psUsers => {
+      this.users = psUsers.map(user => ({ label: user.username, value: user }));
+    });
   }
 
-  searchUseremail() {
-    this.searchMade = true;
-    const users = [
-      { id: 1, username: 'john' },
-      { id: 2, username: 'jane' }
-    ];
+  onUserSelect(userId: number): void {
+    const user = this.users.find(u => u.value.id === userId)?.value;
+    if (user) {
+      this.selectedPayrollServiceUser = user;
+    }
+  }
 
-    this.searchResult = users.find(user => user.username.toLowerCase() === this.searchTerm.toLowerCase()) || null;
-    this.selectedClientUser = this.searchResult
-    // console.log(this.selectedClientUser)
+  searchUserEmail() {
+    this.searchMade = true;
+    this.assignmentService.getClientByEmail(this.searchTerm).subscribe({
+      next: (clientUser) => {
+        this.searchResult = clientUser;
+        this.selectedClientUser = clientUser;
+      },
+      error: () => {
+        console.log("email not found")
+      }
+    });
   }
 
   createAssignment() {
-    const payload = {
-        clientId: this.selectedClientUser?.id, 
-        payrollServiceId: this.selectedPayrollServiceUser?.value.id
-    };
+    if (this.selectedClientUser && this.selectedPayrollServiceUser) {
+        this.assignmentService.createAssignment(this.selectedClientUser.id, this.selectedPayrollServiceUser.id).subscribe({
+            next: (response) => {
+                console.log('Assignment created successfully', response);
+                this.assignmentCreated = true;
+                setTimeout(() => {
+                  this.resetStepper(); 
+                }, 2000); 
+            },
+            error: (error) => {
+                console.error('Failed to create assignment', error);
+                this.assignmentCreated = false;
+            }
+        });
+    }
+  }
 
-    this.http.post<AssignUserResDto>('http://localhost:8080/assignuser/create', payload).subscribe({
-        next: (response) => {
-            console.log('Assignment created successfully', response);
-        },
-        error: (error) => {
-            console.error('Failed to create assignment', error);
-        }
-    });
+  resetStepper() {
+    // this.currentStepIndex = 0; 
+    this.router.navigate(["/SA/dashboard"]);
+    this.assignmentCreated = false; 
+    this.selectedClientUser = this.DEFAULT_USER;
+    this.selectedPayrollServiceUser = this.DEFAULT_USER;
+
+    this.selectedPayrollServiceUserId = -1; 
+  }
 }
 
-}

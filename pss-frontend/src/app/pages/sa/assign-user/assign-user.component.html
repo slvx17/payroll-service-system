@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<p-stepper>
+<p-stepper >
     <p-stepperPanel header="Search User">
         <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
             <div class="flex flex-column h-12rem">
@@ -10,7 +10,7 @@
                                 <input type="text" pInputText [(ngModel)]="searchTerm" placeholder="Enter user email">
                             </div>
                             <div class="p-col-fixed">
-                                <button pButton type="submit" label="Search" (click)="searchUseremail()"></button>
+                                <button pButton type="submit" label="Search" (click)="searchUserEmail()"></button>
                             </div>
                         </div>
                         <div *ngIf="searchResult">
@@ -35,15 +35,19 @@
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback" let-index="index">
             <div class="flex flex-column h-12rem">
                 <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">
-                    <p-dropdown 
-                    [options]="users" 
-                    [(ngModel)]="selectedPayrollServiceUser" 
-                    optionLabel="label" 
-                    filter="true" 
-                    filterBy="label"
-                    placeholder="Select a user">
-                    </p-dropdown>
-                </div>
+  <p-dropdown 
+      [options]="users" 
+      [(ngModel)]="selectedPayrollServiceUserId" 
+      optionLabel="label" 
+      optionValue="value.id" 
+      filter="true" 
+      filterBy="label"
+      placeholder="Select a user"
+      [showClear]="true"
+      [dropdownIcon]="'pi pi-chevron-down'"
+      (onChange)="onUserSelect($event.value)"> <!-- This event is triggered when a user selects an item -->
+  </p-dropdown>
+</div>
             </div>
             <div class="flex pt-4 justify-content-between">
                 <p-button 
@@ -57,7 +61,7 @@
                     (onClick)="nextCallback.emit()" />
             </div>
         </ng-template>
-    </p-stepperPanel>
+    </p-stepperPanel>    
     <p-stepperPanel header="Summary">
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-index="index">
             <div class="flex flex-column h-12rem">
@@ -66,10 +70,13 @@
                         <p class="text-lg">Selected Client: {{ selectedClientUser.username }} (ID: {{ selectedClientUser.id }})</p>
                     </div>
                     <div *ngIf="selectedPayrollServiceUser" class="w-full text-center">
-                        <p class="text-lg">Selected Payroll Service: {{ selectedPayrollServiceUser.label }} (ID: {{ selectedPayrollServiceUser.value.id }})</p>
+                        <p class="text-lg">Selected Payroll Service: {{ selectedPayrollServiceUser.username }} (ID: {{ selectedPayrollServiceUser.id }})</p>
                     </div>
                     <div *ngIf="!selectedClientUser || !selectedPayrollServiceUser" class="w-full text-center">
                         <p class="text-md text-red-500">Please select both client and payroll service</p>
+                    </div>
+                    <div *ngIf="assignmentCreated" class="w-full text-center">
+                        <p class="text-lg text-green-500">Assignment created successfully!</p>
                     </div>
                 </div>                
             </div>
@@ -78,5 +85,6 @@
                 <p-button label="Create" icon="pi pi-check" (onClick)="createAssignment()" [disabled]="!selectedClientUser || !selectedPayrollServiceUser"></p-button>
             </div>
         </ng-template>
-    </p-stepperPanel>    
+    </p-stepperPanel>
+    
 </p-stepper>
