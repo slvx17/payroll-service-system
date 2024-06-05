@@ -1,5 +1,8 @@
 package com.lawencon.pss_app.dao;
 
-public interface ClientAssignmentDao {
+import com.lawencon.pss_app.model.ClientAssignment;
+import com.lawencon.pss_app.model.User;
 
+public interface ClientAssignmentDao {
+	ClientAssignment getByClient(User user); 
 }

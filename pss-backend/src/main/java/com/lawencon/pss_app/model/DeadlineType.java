@@ -14,19 +14,22 @@ import com.lawencon.pss_app.constant.DeadlineTypeEnum;
 @Entity
 @Table(name = "deadline_type")
 public class DeadlineType {
-
+	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "deadline_name", nullable = false, length = 50)
     private String deadlineName;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "deadline_code", nullable = false, length = 5)
-    private DeadlineTypeEnum deadlineCode;
+    private String deadlineCode;
+    
+    public DeadlineType() { }
 
-    public DeadlineType() {
+    public DeadlineType(DeadlineTypeEnum deadlineTypeEnum) {
+    	this.deadlineName = deadlineTypeEnum.getDeadlineName();
+    	this.deadlineCode = deadlineTypeEnum.getDeadlineCode();
     }
 
     public Long getId() {
@@ -45,11 +48,11 @@ public class DeadlineType {
         this.deadlineName = deadlineName;
     }
 
-    public DeadlineTypeEnum getDeadlineCode() {
+    public String getDeadlineCode() {
         return deadlineCode;
     }
 
-    public void setDeadlineCode(DeadlineTypeEnum deadlineCode) {
+    public void setDeadlineCode(String deadlineCode) {
         this.deadlineCode = deadlineCode;
     }
 }

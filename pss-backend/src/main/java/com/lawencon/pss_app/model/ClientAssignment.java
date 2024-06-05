@@ -10,7 +10,7 @@ public class ClientAssignment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "client_id")
     private User client;
 

@@ -3,6 +3,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { LoginReqDto } from "../dto/user/login-req.dto";
 import { LoginResDto } from "../dto/user/login-res.dto";
+import { CalendarReqDto } from '../dto/calendar/calendar-req.dto';
+import { CalendarResDto } from '../dto/calendar/calendar-res.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -27,4 +29,7 @@ export class AuthService {
         this.router.navigate(["/login"]);
     }
 
+    calendarGet(dto: CalendarReqDto){
+        return this.http.post<CalendarResDto>('http://localhost:8080/CL/getCalendar', dto)
+    }
 }
