@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 import { SelectItem } from 'primeng/api';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClient } from '@angular/common/http';
-import { AssignUserResDto } from '../../../dto/assignment/assign-user-res.dto';
 import { UserResDto } from '../../../dto/user/user.dto';
 import { AssignmentService } from '../../../service/assignment.service';
 import { Router } from '@angular/router';

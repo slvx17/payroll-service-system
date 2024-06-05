@@ -39,6 +39,7 @@ export class CreateUserComponent implements OnInit {
       roleId: ['', Validators.required]
     });
 
+    
     this.roles = [
       { label: 'Super Admin', value: 1 },
       { label: 'Payroll Service', value: 2 },
@@ -49,7 +50,7 @@ export class CreateUserComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.userForm.value);
+    // console.log(this.userForm.value);
     if (this.userForm.valid) {
       this.userService.registerUser(this.userForm.value).subscribe({
         next: (response) => {

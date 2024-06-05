@@ -13,6 +13,7 @@ import { MenubarModule } from 'primeng/menubar';
     CommonModule,
     MenubarModule,
     RouterModule,
+    NavbarComponent,
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit {
     this.startItems = this.getItemsByRole(this.userRole);
 
     this.endItems = [
+      { label: 'Chat', icon: 'pi pi-inbox', routerLink: ['/chat'] },
       { label: 'Notifications', icon: 'pi pi-bell', routerLink: ['/notifications'] },
       {
         label: "Profile", icon:"pi pi-user", items: [
@@ -42,7 +44,6 @@ export class NavbarComponent implements OnInit {
           command: (event) => {
             this.authService.logout();
           },
-          // routerLink: ['/login'], 
           styleClass: 'ml-auto' },
         ]
       }
@@ -65,9 +66,9 @@ export class NavbarComponent implements OnInit {
 
     const psItems: MenuItem[] = [
       ...commonItems,
-      { label: 'Calendar List View', icon: 'pi pi-calendar', routerLink: ['/calendar-list'] },
-      { label: 'Client Calendar View', icon: 'pi pi-calendar-plus', routerLink: ['/client-calendar'] },
-      { label: 'Create Client Calendar', icon: 'pi pi-calendar-edit', routerLink: ['/create-client-calendar'] },
+      { label: 'Client Schedules', icon: 'pi pi-calendar', routerLink: ['/calendar-list'] },
+      { label: 'Documents', icon: 'pi pi-file', routerLink: ['/client-calendar'] },
+      { label: 'Create Client Schedule', icon: 'pi pi-calendar-plus', routerLink: ['/PS/createschedule'] },
       { label: 'Schedule Change Approval', icon: 'pi pi-check-circle', routerLink: ['/schedule-change-approval'] },
     ]
 
