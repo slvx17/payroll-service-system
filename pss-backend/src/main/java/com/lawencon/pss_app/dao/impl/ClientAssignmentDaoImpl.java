@@ -1,22 +1,25 @@
 package com.lawencon.pss_app.dao.impl;
-
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.pss_app.dao.ClientAssignmentDao;
 import com.lawencon.pss_app.model.ClientAssignment;
+import com.lawencon.pss_app.model.User;
 import com.lawencon.pss_app.repo.ClientAssignmentRepo;
 
 @Repository
 public class ClientAssignmentDaoImpl implements ClientAssignmentDao {
-	
 	private final ClientAssignmentRepo clientAssignmentRepo;
-
-	public ClientAssignmentDaoImpl(ClientAssignmentRepo clientAssignmentRepo) {
+	
+	public ClientAssignmentDaoImpl (ClientAssignmentRepo clientAssignmentRepo) {
 		this.clientAssignmentRepo = clientAssignmentRepo;
 	}
-
+	
+	@Override
+	public ClientAssignment getByClient(User user) {
+		return clientAssignmentRepo.findByClient(user);
+	}
 	@Override
 	public ClientAssignment create(ClientAssignment clientAssignment) {
 		return clientAssignmentRepo.save(clientAssignment);
@@ -48,7 +51,6 @@ public class ClientAssignmentDaoImpl implements ClientAssignmentDao {
         }
 		
 		clientAssignmentRepo.deleteById(clientAssignment.getId());
-		
 	}
 
 }
