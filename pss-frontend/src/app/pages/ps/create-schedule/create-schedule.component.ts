@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from '../../navbar/navbar.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NavbarComponent } from '../../navbar/navbar.component';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { PsService } from '../../../service/ps.service';
 
 @Component({
   selector: 'app-create-schedule',
@@ -16,19 +17,17 @@ import { CalendarModule } from 'primeng/calendar';
     CalendarModule
   ],
   templateUrl: './create-schedule.component.html',
-  styleUrl: './create-schedule.component.css'
+  styleUrls: ['./create-schedule.component.css']
 })
-
 export class CreateScheduleComponent {
   userForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder, private psService: PsService) { }
 
   ngOnInit() {
     this.userForm = this.fb.group({
       userEmail: ['', [Validators.required, Validators.email]],
-      monthYear: [new Date(), [Validators.required]],
+      monthYear: ['', [Validators.required]],
       sendData: ['', [Validators.required]],
       payrollReport: ['', [Validators.required]],
       bankUpload: ['', [Validators.required]],
@@ -39,10 +38,26 @@ export class CreateScheduleComponent {
 
   onSubmit(): void {
     if (this.userForm.valid) {
-      console.log('Form Submitted', this.userForm.value);
+      const formValue = this.userForm.value;
+      const requestData = {
+        userEmail: formValue.userEmail,
+        monthYear: formValue.monthYear.toISOString().substring(0, 7), 
+        sendDataDate: formValue.sendData.toISOString().substring(0, 10),
+        payrollReportDate: formValue.payrollReport.toISOString().substring(0, 10),
+        bankUploadDate: formValue.bankUpload.toISOString().substring(0, 10),
+        payrollJournalDate: formValue.payrollJournal.toISOString().substring(0, 10),
+        paidOutDate: formValue.paidOut.toISOString().substring(0, 10)
+      };
+
+      this.psService.createScheduleAndDates(requestData).subscribe({
+        next: (response: any) => {
+          console.log('Schedule created successfully:', response);
+          this.userForm.reset();
+        },
+        error: (error: any) => console.error('Failed to create schedule:', error)
+      });
     } else {
       console.error('Form is not valid');
     }
   }
 }
-

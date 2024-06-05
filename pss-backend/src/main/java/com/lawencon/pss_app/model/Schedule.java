@@ -1,7 +1,13 @@
 package com.lawencon.pss_app.model;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="schedule")
@@ -16,7 +22,7 @@ public class Schedule {
     private ClientAssignment clientAssignment;
 
     @Column(name = "month_year", nullable = false)
-    private LocalDate monthYear;
+    private String monthYear;
 
     public Schedule() {
     }
@@ -37,11 +43,11 @@ public class Schedule {
         this.clientAssignment = clientAssignment;
     }
 
-    public LocalDate getMonthYear() {
+    public String getMonthYear() {
         return monthYear;
     }
 
-    public void setMonthYear(LocalDate monthYear) {
+    public void setMonthYear(String monthYear) {
         this.monthYear = monthYear;
     }
 }

@@ -1,4 +1,4 @@
-package com.lawencon.pss_app.dto_calendar;
+package com.lawencon.pss_app.dto.calendar;
 
 public class CalendarReqDto {
 	private String email;

@@ -1,4 +1,4 @@
-package com.lawencon.pss_app.dto_calendar;
+package com.lawencon.pss_app.dto.calendar;
 
 import java.time.LocalDate;
 import java.util.List;

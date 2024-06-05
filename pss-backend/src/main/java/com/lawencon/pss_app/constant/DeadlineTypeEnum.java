@@ -1,5 +1,6 @@
 package com.lawencon.pss_app.constant;
 
+
 public enum DeadlineTypeEnum {
     SEND_DATA("send-data", "SD"),
     PAYROLL_REPORT("payroll-report", "PR"),
@@ -9,6 +10,14 @@ public enum DeadlineTypeEnum {
 
     private final String deadlineName;
     private final String deadlineCode;
+    
+    public static DeadlineTypeEnum getById(int id) {
+        return DeadlineTypeEnum.values()[id - 1];
+    }
+
+    public int getId() {
+        return ordinal() + 1;
+    }
 
     DeadlineTypeEnum(String deadlineName, String deadlineCode) {
         this.deadlineName = deadlineName;

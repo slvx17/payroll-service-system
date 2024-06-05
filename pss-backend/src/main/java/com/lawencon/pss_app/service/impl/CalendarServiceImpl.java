@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.lawencon.pss_app.dao.ClientAssignmentDao;
 import com.lawencon.pss_app.dao.DateDao;
+import com.lawencon.pss_app.dao.DeadlineTypeDao;
 import com.lawencon.pss_app.dao.ScheduleDao;
 import com.lawencon.pss_app.dao.UserDao;
-import com.lawencon.pss_app.dto_calendar.CalendarReqDto;
-import com.lawencon.pss_app.dto_calendar.CalendarResDto;
+import com.lawencon.pss_app.dto.calendar.CalendarReqDto;
+import com.lawencon.pss_app.dto.calendar.CalendarResDto;
+import com.lawencon.pss_app.dto.ps.CreateScheduleReqDto;
+import com.lawencon.pss_app.dto.ps.CreateScheduleResDto;
 import com.lawencon.pss_app.model.ClientAssignment;
 import com.lawencon.pss_app.model.Date;
 import com.lawencon.pss_app.model.Schedule;
@@ -24,15 +27,19 @@ public class CalendarServiceImpl implements CalendarService {
 	private ScheduleDao scheduleDAO;
 	private DateDao dateDAO;
 	private UserDao userDAO;
+	private DeadlineTypeDao deadlineTypeDAO;
 	
 	public CalendarServiceImpl(ClientAssignmentDao clientAssignmentDAO, 
 			ScheduleDao scheduleDAO, 
 			DateDao dateDAO, 
-			UserDao userDAO) {
+			UserDao userDAO,
+			DeadlineTypeDao deadlineTypeDAO
+			) {
     	this.clientAssignmentDAO = clientAssignmentDAO;
     	this.scheduleDAO = scheduleDAO;
     	this.dateDAO = dateDAO;
     	this.userDAO = userDAO;
+    	this.deadlineTypeDAO = deadlineTypeDAO;
     }
 	
 	@Override
@@ -41,7 +48,6 @@ public class CalendarServiceImpl implements CalendarService {
         List<String> deadlineTypes = new ArrayList<>();
         
 		User user = userDAO.findByEmail(reqDto.getEmail());
-		Long id = user.getId();
 		ClientAssignment clientAssignment = clientAssignmentDAO.getByClient(user);	
         List<Schedule> schedule = scheduleDAO.getByClientAssignment(clientAssignment);
         for (Schedule eachschedule : schedule) {
@@ -60,4 +66,70 @@ public class CalendarServiceImpl implements CalendarService {
 		return calendarRes;
 		
 	}
+	
+	@Override
+	public CreateScheduleResDto createScheduleAndDates(CreateScheduleReqDto createScheduleReqDto) {
+		String email = createScheduleReqDto.getUserEmail();
+		
+		String monthYear = createScheduleReqDto.getMonthYear();
+		System.out.println(monthYear);
+
+	    User user = userDAO.findByEmail(email);
+	    if (user == null) {
+	        throw new IllegalArgumentException("No user found with the email: " + email);
+	    }
+
+	    ClientAssignment clientAssignment = clientAssignmentDAO.getByClient(user);
+	    if (clientAssignment == null) {
+	        throw new RuntimeException("No client assignment found for user with email: " + email);
+	    }
+
+	    Schedule schedule = new Schedule();
+	    schedule.setMonthYear(monthYear);
+	    schedule.setClientAssignment(clientAssignment);
+	    schedule = scheduleDAO.create(schedule); 
+//	    
+	    LocalDate date = createScheduleReqDto.getSendDataDate();
+        Date newDate = new Date();
+        newDate.setSchedule(schedule);
+        newDate.setDeadlineDate(date);
+        newDate.setDeadlineType(deadlineTypeDAO.findById(1)); 
+        dateDAO.create(newDate);
+        
+        date = createScheduleReqDto.getPayrollReportDate();
+        newDate = new Date();
+        newDate.setSchedule(schedule);
+        newDate.setDeadlineDate(date);
+        newDate.setDeadlineType(deadlineTypeDAO.findById(2)); 
+        dateDAO.create(newDate);
+
+	    date = createScheduleReqDto.getBankUploadDate();
+        newDate = new Date();
+        newDate.setSchedule(schedule);
+        newDate.setDeadlineDate(date);
+        newDate.setDeadlineType(deadlineTypeDAO.findById(3)); 
+        dateDAO.create(newDate);
+        
+        date = createScheduleReqDto.getPayrollJournalDate();
+        newDate = new Date();
+        newDate.setSchedule(schedule);
+        newDate.setDeadlineDate(date);
+        newDate.setDeadlineType(deadlineTypeDAO.findById(4)); 
+        dateDAO.create(newDate);
+        
+        
+        date = createScheduleReqDto.getPaidOutDate();
+        newDate = new Date();
+        newDate.setSchedule(schedule);
+        newDate.setDeadlineDate(date);
+        newDate.setDeadlineType(deadlineTypeDAO.findById(5)); 
+        dateDAO.create(newDate);
+       
+	    
+	    return new CreateScheduleResDto(
+//	    		schedule.getId()
+	    		null
+	    		,"User created successfully!");
+	}
+
 }

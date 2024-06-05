@@ -45,7 +45,7 @@ public class SecurityConfig {
 		final List<RequestMatcher> matchers = new ArrayList<>();
 		matchers.add(new AntPathRequestMatcher("/login", HttpMethod.POST.name()));
 		matchers.add(new AntPathRequestMatcher("/register", HttpMethod.POST.name()));
-		matchers.add(new AntPathRequestMatcher("/CL/getCalendar", HttpMethod.POST.name()));
+		matchers.add(new AntPathRequestMatcher("/PS/createschedule", HttpMethod.POST.name()));
 		return matchers; 
 	}
 	
@@ -55,7 +55,7 @@ public class SecurityConfig {
         return new WebMvcConfigurer() {
 
             @Override
-            public void addCorsMappings(CorsRegistry registry) {
+            public void addCorsMappings(@SuppressWarnings("null") CorsRegistry registry) {
                 registry.addMapping("/**")
                     .allowedOrigins("*")
                     .allowedMethods(

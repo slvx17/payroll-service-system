@@ -29,7 +29,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 	private List<RequestMatcher> matchers;
 
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+	protected void doFilterInternal(@SuppressWarnings("null") HttpServletRequest request, @SuppressWarnings("null") HttpServletResponse response, @SuppressWarnings("null") FilterChain filterChain)
 			throws ServletException, IOException {
 
 		final String header = request.getHeader("Authorization");
@@ -55,7 +55,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 	}
 
 	@Override
-	protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+	protected boolean shouldNotFilter(@SuppressWarnings("null") HttpServletRequest request) throws ServletException {
 		return matchers.stream().anyMatch(m -> m.matches(request));
 	}
 
