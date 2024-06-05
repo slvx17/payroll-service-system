@@ -1,4 +1,4 @@
 export interface CalendarResDto{
-    date: string[]
-    eventName: string[]
+    deadline: string[]
+    deadlineType: string[]
 }

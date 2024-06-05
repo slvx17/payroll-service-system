@@ -28,8 +28,4 @@ export class AuthService {
         localStorage.clear();
         this.router.navigate(["/login"]);
     }
-
-    calendarGet(dto: CalendarReqDto){
-        return this.http.post<CalendarResDto>('http://localhost:8080/CL/getCalendar', dto)
-    }
 }

@@ -7,6 +7,8 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../service/auth.service';
+import { ClientCalendarService } from '../../../service/clientcalendar.service';
+import { CalendarResDto } from '../../../dto/calendar/calendar-res.dto';
 
 @Component({
   selector: 'app-cl-dashboard',
@@ -29,7 +31,7 @@ export class ClDashboardComponent {
     email: [localStorage.getItem('email') || '', [Validators.required]],
   });
 
-  constructor(private fb:NonNullableFormBuilder, private authService: AuthService){}
+  constructor(private fb:NonNullableFormBuilder, private authService: AuthService, private clientCalendarService: ClientCalendarService){}
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -49,27 +51,21 @@ export class ClDashboardComponent {
 
   ngOnInit() {
     if (this.calendarReq.invalid) {
-      console.log("Invalid")
       return;
   }
-  console.log("Loaded Deadlines Successfully!")
 
   const calendarReqRaw = this.calendarReq.getRawValue();
-  this.authService.calendarGet(calendarReqRaw).subscribe({
-    next: (res) => {
-      this.date = res.date;
-      this.eventName = res.eventName;
-      console.log("Loaded Deadlines Successfully!")
-  },
-  error: (err) => {
-      console.error(err);
-  }
-  })
+  this.clientCalendarService.calendarGet(calendarReqRaw).subscribe((res: CalendarResDto) => {{
+      this.date = res.deadline;
+      this.eventName = res.deadlineType;
+      console.log(this.date)
 
-  for (let i = 0; i < this.date.length; i++) {
-    let newEvent = {title: this.eventName[i], date: this.date[i]}
-    this.allEvents.push(newEvent);
-  }
-  this.calendarOptions.events = this.allEvents;
+      for (let i = 0; i < this.date.length; i++) {
+        let newEvent = {title: this.eventName[i], date: this.date[i]}
+        this.allEvents.push(newEvent);
+        console.log(this.eventName[i])
+      }
+      this.calendarOptions.events = this.allEvents;
+  }})
 }
 }
