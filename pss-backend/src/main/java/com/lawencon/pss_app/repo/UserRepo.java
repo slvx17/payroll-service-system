@@ -12,5 +12,4 @@ import com.lawencon.pss_app.model.User;
 public interface UserRepo extends JpaRepository<User,Long> {
 	List<User> findByRole(Role role);
 	User findByEmail(String email);
-	User findByEmailAndRole(String email, Role role);
 }

@@ -43,13 +43,15 @@ public class CalendarServiceImpl implements CalendarService {
 		User user = userDAO.findByEmail(reqDto.getEmail());
 		Long id = user.getId();
 		ClientAssignment clientAssignment = clientAssignmentDAO.getByClient(user);	
-        Schedule schedule = scheduleDAO.getByClientAssignment(clientAssignment);
-        List<Date> dates = dateDAO.getBySchedule(schedule);
-        
-        for(Date date : dates) {
-            deadlines.add(date.getDeadlineDate());
+        List<Schedule> schedule = scheduleDAO.getByClientAssignment(clientAssignment);
+        for (Schedule eachschedule : schedule) {
+            List<Date> dates = dateDAO.getBySchedule(eachschedule);
             
-            deadlineTypes.add(date.getDeadlineType().getDeadlineName());
+            for(Date date : dates) {
+                deadlines.add(date.getDeadlineDate());
+                
+                deadlineTypes.add(date.getDeadlineType().getDeadlineName());
+            }
         }
         
     	var calendarRes = new CalendarResDto();

@@ -3,7 +3,6 @@ package com.lawencon.pss_app.service.impl;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -42,19 +41,7 @@ public class UserServiceImpl implements UserService {
         User user = userDAO.findByEmail(email);
         return Optional.ofNullable(user);
     }
-    
-    @Override
-	public List<User> getAllPs() {
-		List<User> psUsers = userDAO.findByRole(new Role(RoleEnum.PAYROLL_SERVICE));
-		return psUsers;
-	}
 
-
-	@Override
-	public User getClientByEmail(String email) {
-		User client = userDAO.findByEmailAndRole(email, new Role(RoleEnum.CLIENT));
-		return client;
-	}
     
     @Transactional
     @Override
@@ -63,6 +50,7 @@ public class UserServiceImpl implements UserService {
         newUser.setUsername(reqDto.getUserName());
         newUser.setEmail(reqDto.getUserEmail());
         newUser.setUserPassword(encoder.encode(reqDto.getPassword()));
+//        newUser.setUserPassword(reqDto.getPassword());
 
         Role role = new Role(RoleEnum.getById(reqDto.getRoleId()));  
         newUser.setRole(role);

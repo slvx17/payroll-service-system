@@ -42,11 +42,6 @@ public class UserDaoImpl implements UserDao {
 	public User findByEmail(String email) {
 		return userRepo.findByEmail(email);
 	}
-	
-	@Override
-	public User findByEmailAndRole(String email, Role role) {
-		return userRepo.findByEmailAndRole(email, role);
-	}
 
 	@Override
 	public User update(User user) {

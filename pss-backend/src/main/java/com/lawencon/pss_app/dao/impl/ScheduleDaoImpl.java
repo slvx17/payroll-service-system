@@ -1,5 +1,7 @@
 package com.lawencon.pss_app.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.lawencon.pss_app.dao.ScheduleDao;
@@ -16,7 +18,7 @@ public class ScheduleDaoImpl implements ScheduleDao{
 	}
 	
 	@Override
-	public Schedule getByClientAssignment(ClientAssignment clientAssignment) {
+	public List<Schedule> getByClientAssignment(ClientAssignment clientAssignment) {
 		return scheduleRepo.findByClientAssignment(clientAssignment);
 	}
 
