@@ -19,13 +19,14 @@ import { CalendarResDto } from '../../../dto/calendar/calendar-res.dto';
     FullCalendarModule,
     NavbarComponent,
   ],
-  templateUrl: './cl-dashboard.component.html',
-  styleUrl: './cl-dashboard.component.css'
+  templateUrl: './cl-calendarview.component.html',
+  styleUrl: './cl-calendarview.component.css'
 })
 export class ClDashboardComponent {
   date: string[] = [];
   eventName: string[] = [];
   allEvents: { title: string, date: string }[] = [];
+  d: string = "2024-06-01"
 
   calendarReq = this.fb.group({
     email: [localStorage.getItem('email') || '', [Validators.required]],

@@ -6,6 +6,7 @@ import { SaDashboardComponent } from './pages/sa/sa-dashboard/sa-dashboard.compo
 import { CreateUserComponent } from './pages/sa/create-user/create-user.component';
 import { AssignUserComponent } from './pages/sa/assign-user/assign-user.component';
 import { CreateScheduleComponent } from './pages/ps/create-schedule/create-schedule.component';
+import { PSCalendarViewComponent } from './pages/ps/ps-calendarview/ps-calendarview.component';
 
 export const routes: Routes = [
 
@@ -39,4 +40,8 @@ export const routes: Routes = [
         path:"PS/createschedule",
         component: CreateScheduleComponent
     },
+    {
+        path:"PS/calendarview",
+        component: PSCalendarViewComponent
+    }
 ];

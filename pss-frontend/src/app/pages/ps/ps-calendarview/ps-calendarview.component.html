@@ -1,0 +1,14 @@
+<app-navbar></app-navbar>
+<p-toolbar>
+    <div class="p-toolbar-group-start">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText [(ngModel)]="searchTerm" placeholder="Enter client email"/> 
+            <button pButton type="submit" label="Search" (click)="searchUserEmail()"></button>
+        </span>
+    </div>
+    <div class="p-toolbar-group-end">
+        <p *ngIf="searchResult">Username: {{ searchResult.username }}, ID: {{ searchResult.id }}</p>
+    </div>
+</p-toolbar>
+<full-calendar [options]="calendarOptions"></full-calendar>
