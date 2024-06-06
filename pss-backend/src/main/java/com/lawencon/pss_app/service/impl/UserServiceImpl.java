@@ -87,9 +87,9 @@ public class UserServiceImpl implements UserService {
     	User user = userDAO.findByEmail(loginReqDto.getEmail());
     	final var loginRes = new LoginResDto();
 		if (user!=null) {
-//			loginRes.setMessage(loginReqDto.getEmail() + " is logged in");
+			System.out.println(loginReqDto.getEmail() + " is logged in");
 		} else {
-//			loginRes.setMessage("User not found.");
+			System.out.println("User not found.");
 		}
 
 		return loginRes; 

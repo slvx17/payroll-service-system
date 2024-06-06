@@ -17,7 +17,7 @@ public class ClientAssignmentDaoImpl implements ClientAssignmentDao {
 	}
 	
 	@Override
-	public ClientAssignment getByClient(User user) {
+	public ClientAssignment findByClient(User user) {
 		return clientAssignmentRepo.findByClient(user);
 	}
 	@Override

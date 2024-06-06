@@ -48,7 +48,7 @@ public class CalendarServiceImpl implements CalendarService {
         List<String> deadlineTypes = new ArrayList<>();
         
 		User user = userDAO.findByEmail(reqDto.getEmail());
-		ClientAssignment clientAssignment = clientAssignmentDAO.getByClient(user);	
+		ClientAssignment clientAssignment = clientAssignmentDAO.findByClient(user);	
         List<Schedule> schedule = scheduleDAO.getByClientAssignment(clientAssignment);
         for (Schedule eachschedule : schedule) {
             List<Date> dates = dateDAO.getBySchedule(eachschedule);
@@ -79,7 +79,7 @@ public class CalendarServiceImpl implements CalendarService {
 	        throw new IllegalArgumentException("No user found with the email: " + email);
 	    }
 
-	    ClientAssignment clientAssignment = clientAssignmentDAO.getByClient(user);
+	    ClientAssignment clientAssignment = clientAssignmentDAO.findByClient(user);
 	    if (clientAssignment == null) {
 	        throw new RuntimeException("No client assignment found for user with email: " + email);
 	    }
@@ -88,7 +88,7 @@ public class CalendarServiceImpl implements CalendarService {
 	    schedule.setMonthYear(monthYear);
 	    schedule.setClientAssignment(clientAssignment);
 	    schedule = scheduleDAO.create(schedule); 
-//	    
+	    
 	    LocalDate date = createScheduleReqDto.getSendDataDate();
         Date newDate = new Date();
         newDate.setSchedule(schedule);

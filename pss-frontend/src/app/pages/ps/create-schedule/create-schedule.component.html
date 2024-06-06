@@ -9,32 +9,34 @@
   
       <div class="p-field">
         <label for="monthYear">Month & Year</label>
-        <p-calendar id="monthYear" formControlName="monthYear" [view]="'month'" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2010:2030"></p-calendar>
+        <p-calendar id="monthYear" formControlName="monthYear" [view]="'month'" dateFormat="mm/yy" 
+        [yearNavigator]="true" yearRange="2010:2030" (onSelect)="onDateSelect($event)"
+        ></p-calendar>
       </div>
   
       <div class="p-field">
         <label for="sendData">Send Data Date</label>
-        <p-calendar id="sendData" formControlName="sendData" [showIcon]="true"></p-calendar>
+        <p-calendar id="sendData" formControlName="sendData" [showIcon]="true" [defaultDate]="date" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
       </div>
   
       <div class="p-field">
         <label for="payrollReport">Payroll Report Date</label>
-        <p-calendar id="payrollReport" formControlName="payrollReport" [showIcon]="true"></p-calendar>
+        <p-calendar id="payrollReport" formControlName="payrollReport" [showIcon]="true" [defaultDate]="date" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
       </div>
   
       <div class="p-field">
         <label for="bankUpload">Bank Upload Date</label>
-        <p-calendar id="bankUpload" formControlName="bankUpload" [showIcon]="true"></p-calendar>
+        <p-calendar id="bankUpload" formControlName="bankUpload" [showIcon]="true" [defaultDate]="date" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
       </div>
   
       <div class="p-field">
         <label for="payrollJournal">Payroll Journal Date</label>
-        <p-calendar id="payrollJournal" formControlName="payrollJournal" [showIcon]="true"></p-calendar>
+        <p-calendar id="payrollJournal" formControlName="payrollJournal" [showIcon]="true" [defaultDate]="date" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
       </div>
   
       <div class="p-field">
         <label for="paidOut">Paid Out Date</label>
-        <p-calendar id="paidOut" formControlName="paidOut" [showIcon]="true"></p-calendar>
+        <p-calendar id="paidOut" formControlName="paidOut" [showIcon]="true" [defaultDate]="date" [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
       </div>
       
       <p-button type="submit" label="Submit"></p-button>

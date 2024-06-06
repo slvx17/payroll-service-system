@@ -32,19 +32,19 @@ export class AssignUserComponent implements OnInit {
   private DEFAULT_USER: UserResDto = {
     id: 0,
     username: 'No Selection',
-    email: 'noemail@domain.com'
+    message: 'no action yet'
   };
 
   searchTerm: string = '';
   searchResult: UserResDto | null = null;
   searchMade: boolean = false;
+  message: string = "";
 
   users: SelectItem[] = [];
   selectedClientUser!: UserResDto;
   selectedPayrollServiceUser!: UserResDto;
   selectedPayrollServiceUserId!: number;
   assignmentCreated: boolean = false;
-  // currentStepIndex: number = 0;
 
   constructor(private http: HttpClient, private assignmentService: AssignmentService, private router: Router) { }
 
@@ -64,12 +64,13 @@ export class AssignUserComponent implements OnInit {
   searchUserEmail() {
     this.searchMade = true;
     this.assignmentService.getClientByEmail(this.searchTerm).subscribe({
-      next: (clientUser) => {
-        this.searchResult = clientUser;
-        this.selectedClientUser = clientUser;
+      next: (res) => {
+        this.message = res.message;
+        this.searchResult = res;
+        this.selectedClientUser = res;
       },
-      error: () => {
-        console.log("email not found")
+      error: (res) => {
+        console.log(res.message)
       }
     });
   }
@@ -93,7 +94,6 @@ export class AssignUserComponent implements OnInit {
   }
 
   resetStepper() {
-    // this.currentStepIndex = 0; 
     this.router.navigate(["/SA/dashboard"]);
     this.assignmentCreated = false; 
     this.selectedClientUser = this.DEFAULT_USER;

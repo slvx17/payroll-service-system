@@ -21,6 +21,9 @@ import { PsService } from '../../../service/ps.service';
 })
 export class CreateScheduleComponent {
   userForm!: FormGroup;
+  date: Date = new Date("2024-06");
+  minDate: Date = new Date("2024-06");
+  maxDate: Date = new Date("2024-06");
 
   constructor(private fb: FormBuilder, private psService: PsService) { }
 
@@ -34,6 +37,13 @@ export class CreateScheduleComponent {
       payrollJournal: ['', [Validators.required]],
       paidOut: ['', [Validators.required]]
     });
+  }
+
+  onDateSelect(event: any) {
+    this.date = new Date(this.userForm.value.monthYear);
+    this.minDate = this.date;
+    this.date.setDate(1); 
+    this.maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth() + 1, 0); 
   }
 
   onSubmit(): void {

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lawencon.pss_app.dto.clientassignment.AssignUserResDto;
 import com.lawencon.pss_app.dto.clientassignment.CreateAssignmentReqDto;
 import com.lawencon.pss_app.dto.user.UserResDto;
+import com.lawencon.pss_app.model.User;
 import com.lawencon.pss_app.service.ClientAssignmentService;
 import com.lawencon.pss_app.service.UserService;
-import com.lawencon.pss_app.model.User;
 
 @RestController
 @RequestMapping("assignuser")
@@ -39,7 +39,14 @@ public class AssignmentController {
 	@GetMapping("/getclientbyemail")
     public ResponseEntity<UserResDto> getClientByEmail(@RequestParam String email) {
         User client = userService.getClientByEmail(email);
-        UserResDto res = new UserResDto(client.getId(), client.getUsername(), client.getEmail());
+        UserResDto res;
+        if(client != null) 
+        {
+        	if(clientAssignmentService.getByClient(client) != null)res = new UserResDto(client.getId(), client.getUsername(), "This client is already assigned");
+        	else res = new UserResDto(client.getId(), client.getUsername(), "Success");
+        	
+        }
+        else res = new UserResDto(null, null, "User with this email not found");
         
         return ResponseEntity.ok(res);
     }

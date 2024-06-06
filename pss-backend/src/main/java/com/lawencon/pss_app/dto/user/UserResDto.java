@@ -3,12 +3,12 @@ package com.lawencon.pss_app.dto.user;
 public class UserResDto {
 	private Long id;
 	private String username;
-    private String email;
+    private String message;
     
-	public UserResDto(Long id, String username, String email) {
+	public UserResDto(Long id, String username, String message) {
 		this.id = id;
 		this.username = username;
-		this.email = email;
+		this.message = message;
 	}
 	
 	public Long getId() {
@@ -23,11 +23,11 @@ public class UserResDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getEmail() {
-		return email;
+	public String getmessage() {
+		return message;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setmessage(String message) {
+		this.message = message;
 	}
     
     

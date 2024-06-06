@@ -6,6 +6,7 @@ import com.lawencon.pss_app.dao.ClientAssignmentDao;
 import com.lawencon.pss_app.dao.UserDao;
 import com.lawencon.pss_app.dto.clientassignment.AssignUserResDto;
 import com.lawencon.pss_app.model.ClientAssignment;
+import com.lawencon.pss_app.model.User;
 import com.lawencon.pss_app.service.ClientAssignmentService;
 
 @Service
@@ -30,6 +31,12 @@ public class ClientAssignmentServiceImpl implements ClientAssignmentService {
 		ClientAssignment newCa =  clientAssignmentDao.create(ca);
 		
 		return new AssignUserResDto(newCa.getId(), "Successfully created assignment!");
+	}
+	
+	@Override
+	public ClientAssignment getByClient(User user) {
+		ClientAssignment res = clientAssignmentDao.findByClient(user);
+		return res;
 	}
 
 }

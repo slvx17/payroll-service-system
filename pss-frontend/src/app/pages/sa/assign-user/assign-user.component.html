@@ -15,9 +15,10 @@
                         </div>
                         <div *ngIf="searchResult">
                             <p>Username: {{ searchResult.username }}, ID: {{ searchResult.id }}</p>
+                            <p>{{message}}</p>
                         </div>
                         <div *ngIf="searchMade && !searchResult">
-                            <p>Username not found.</p>
+                            <p>{{message}}</p>
                         </div>
                     </div>
                 </div>
@@ -45,7 +46,7 @@
       placeholder="Select a user"
       [showClear]="true"
       [dropdownIcon]="'pi pi-chevron-down'"
-      (onChange)="onUserSelect($event.value)"> <!-- This event is triggered when a user selects an item -->
+      (onChange)="onUserSelect($event.value)"> 
   </p-dropdown>
 </div>
             </div>
