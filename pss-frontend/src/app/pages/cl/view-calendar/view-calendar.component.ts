@@ -7,7 +7,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../service/auth.service';
-import { ClientCalendarService } from '../../../service/client.service';
+import { ClientService } from '../../../service/client.service';
 import { CalendarResDto } from '../../../dto/calendar/calendar-res.dto';
 
 @Component({
@@ -33,7 +33,7 @@ export class ViewCalendarComponent {
     email: [localStorage.getItem('email') || '', [Validators.required]],
   });
 
-  constructor(private fb:NonNullableFormBuilder, private authService: AuthService, private clientCalendarService: ClientCalendarService){}
+  constructor(private fb:NonNullableFormBuilder, private authService: AuthService, private clientService: ClientService){}
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -57,7 +57,7 @@ export class ViewCalendarComponent {
   }
 
   const calendarReqRaw = this.calendarReq.getRawValue();
-  this.clientCalendarService.calendarGet(calendarReqRaw).subscribe((res: CalendarResDto) => {{
+  this.clientService.calendarGet(calendarReqRaw).subscribe((res: CalendarResDto) => {{
       this.date = res.deadline;
       this.eventName = res.deadlineType;
       console.log(this.date)

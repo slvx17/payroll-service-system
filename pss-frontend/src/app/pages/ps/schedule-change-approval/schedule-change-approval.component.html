@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<div class="p-fluid">
+    <h2>Change Requests</h2>
+    <div *ngFor="let request of changeRequests">
+        <p-card>
+            <ng-template pTemplate="title">
+                Request ID: {{ request.id }}
+            </ng-template>
+            <ng-template pTemplate="subtitle">
+                Initial Date: {{ request.initialDate }} | Proposed New Date: {{ request.newDate }}
+            </ng-template>
+            <ng-template pTemplate="content">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    <div>
+                        Request Status ID: {{ request.requestStatus }}
+                    </div>
+                    <div>
+                        <button pButton type="button" pRipple label="Approve" icon="pi pi-check" class="p-button-success p-mr-2"
+                                (click)="updateRequest(request.id, true)"></button>
+                        <button pButton type="button" pRipple label="Reject" icon="pi pi-times" class="p-button-danger"
+                                (click)="updateRequest(request.id, false)"></button>
+                    </div>
+                </div>
+            </ng-template>
+        </p-card>
+    </div>    
+</div>

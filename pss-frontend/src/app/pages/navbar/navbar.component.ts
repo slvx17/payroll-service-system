@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit {
       }
     ]
 
-    console.log(this.userRole)
+    // console.log(this.userRole)
 
   }
 
@@ -69,7 +69,7 @@ export class NavbarComponent implements OnInit {
       { label: 'Client Schedules', icon: 'pi pi-calendar', routerLink: ['/calendar-list'] },
       { label: 'Documents', icon: 'pi pi-file', routerLink: ['/client-calendar'] },
       { label: 'Create Client Schedule', icon: 'pi pi-calendar-plus', routerLink: ['/PS/createschedule'] },
-      { label: 'Schedule Change Approval', icon: 'pi pi-check-circle', routerLink: ['/schedule-change-approval'] },
+      { label: 'Schedule Change Approval', icon: 'pi pi-check-circle', routerLink: ['/PS/schedulechangeapproval'] },
     ]
 
     const clItems: MenuItem[] = [

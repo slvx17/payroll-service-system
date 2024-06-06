@@ -4,13 +4,15 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { PsService } from '../../../service/ps.service';
 import { GetAssignmentDto } from '../../../dto/assignment/get-assignment.dto';
 import { Observable, Subscription, map, of, startWith, switchMap } from 'rxjs';
 import { DateDetail } from '../../../helper/date-detail.class';
 import { EventReqDto } from '../../../dto/requestchange/event-req.dto';
 import { CommonModule } from '@angular/common';
 import { ReqChangeReqDto } from '../../../dto/requestchange/request-change-req.dto';
+import { ClientService } from '../../../service/client.service';
+import { Message } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
   selector: 'app-request-change',
@@ -22,7 +24,8 @@ import { ReqChangeReqDto } from '../../../dto/requestchange/request-change-req.d
     CalendarModule,
     DropdownModule,
     InputTextareaModule,
-    CommonModule
+    CommonModule,
+    MessagesModule
   ],
   templateUrl: './request-change.component.html',
   styleUrl: './request-change.component.css'
@@ -37,8 +40,10 @@ export class RequestChangeComponent implements OnInit {
   private subscriptions = new Subscription();
   minDate!: Date;
   maxDate!: Date;
+  messages: Message[] = [];
 
-  constructor(private fb: FormBuilder, private psService: PsService) { }
+
+  constructor(private fb: FormBuilder, private clientService: ClientService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -50,7 +55,7 @@ export class RequestChangeComponent implements OnInit {
 
     const userId = localStorage.getItem('id');
     if (userId) {
-      this.psService.getClientAssignmentById(+userId).subscribe({
+      this.clientService.getClientAssignmentById(+userId).subscribe({
         next: (assignment: GetAssignmentDto) => {
           this.assignmentId = assignment.assignmentId;  
           console.log('Retrieved assignment ID:', this.assignmentId);
@@ -80,7 +85,7 @@ export class RequestChangeComponent implements OnInit {
         monthYear: monthYear.toString().substring(0, 7), 
         assignmentId: this.assignmentId
       };
-      this.psService.getEvents(reqDto).subscribe({
+      this.clientService.getEvents(reqDto).subscribe({
         next: (res) => {
           console.log(res)
           this.events = res.events;  
@@ -110,24 +115,22 @@ export class RequestChangeComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value)
       const reqDto: ReqChangeReqDto = {
         dateId: this.form.value.selectedEvent.id,
         newDate: this.form.value.newDate,
         message: this.form.value.message
       };
-      this.psService.requestChange(reqDto).subscribe({
+      this.clientService.requestChange(reqDto).subscribe({
         next: (response) => {
-          console.log('Request Change Successful:', response.message);
+          this.messages = [{ severity: 'success', summary: 'Success', detail: 'Request Change Successful: ' + response.message }];
+          this.form.reset();
         },
         error: (error) => {
-          console.error('Failed to submit change request:', error);
+          this.messages = [{ severity: 'error', summary: 'Error', detail: 'Failed to submit change request: ' + (error.error.message || error.message) }];
         }
       });
     } else {
-      console.log('Form is not valid');
-      console.log(this.form.value)
-
+      this.messages = [{ severity: 'error', summary: 'Validation Error', detail: 'Form is not valid' }];
     }
   }
 }

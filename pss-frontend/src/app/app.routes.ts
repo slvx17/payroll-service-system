@@ -8,6 +8,7 @@ import { AssignUserComponent } from './pages/sa/assign-user/assign-user.componen
 import { CreateScheduleComponent } from './pages/ps/create-schedule/create-schedule.component';
 import { ViewCalendarComponent } from './pages/cl/view-calendar/view-calendar.component';
 import { RequestChangeComponent } from './pages/cl/request-change/request-change.component';
+import { ScheduleChangeApprovalComponent } from './pages/ps/schedule-change-approval/schedule-change-approval.component';
 
 export const routes: Routes = [
 
@@ -33,6 +34,10 @@ export const routes: Routes = [
         component: CreateScheduleComponent
     },
     {
+        path:"PS/schedulechangeapproval",
+        component: ScheduleChangeApprovalComponent
+    },
+    {
         path:"CL/viewcalendar",
         component: ViewCalendarComponent
     }
@@ -40,5 +45,5 @@ export const routes: Routes = [
     {
         path:"CL/requestchange",
         component: RequestChangeComponent
-    },
+    }
 ];

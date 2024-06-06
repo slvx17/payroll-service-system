@@ -10,5 +10,5 @@ import com.lawencon.pss_app.model.ChangeRequest;
 
 @Repository
 public interface ChangeRequestRepo extends JpaRepository<ChangeRequest, Long> {
-    List<ChangeRequest> findByRequestStatus_Id(@Param("statusId") Long statusId);
+    List<ChangeRequest> findByRequestStatus_Id(@Param("statusId") Integer statusId);
 }

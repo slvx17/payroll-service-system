@@ -6,11 +6,14 @@ import { CalendarResDto } from '../dto/calendar/calendar-res.dto';
 import { Observable } from 'rxjs';
 import { ReqChangeReqDto } from '../dto/requestchange/request-change-req.dto';
 import { ReqChangeResDto } from '../dto/requestchange/request-change-res.dto';
+import { GetAssignmentDto } from '../dto/assignment/get-assignment.dto';
+import { EventResDto } from '../dto/requestchange/event-res.dto';
+import { EventReqDto } from '../dto/requestchange/event-req.dto';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ClientCalendarService {
+export class ClientService {
     constructor(private http: HttpClient, private router: Router) {
 
     }
@@ -31,6 +34,24 @@ export class ClientCalendarService {
         });
 
         return this.http.post<ReqChangeResDto>(`${this.baseUrl}/requestchange`, reqDto, { headers });
+    }
+
+    getEvents(reqDto: EventReqDto): Observable<EventResDto> {
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.post<EventResDto>(`${this.baseUrl}/getevents`, reqDto, { headers });
+    }
+
+    getClientAssignmentById(id: number): Observable<GetAssignmentDto> {
+        const token = localStorage.getItem('token');
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.get<GetAssignmentDto>(`${this.baseUrl}/getbyid?id=${id}`, { headers });
     }
 
 

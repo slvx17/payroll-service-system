@@ -4,11 +4,10 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { CreateCalendarReqDto } from '../dto/calendar/create-calendar-req.dto';  
 import { CreateCalendarResDto } from '../dto/calendar/create-calendar-res.dto';  
-import { GetAssignmentDto } from "../dto/assignment/get-assignment.dto";
-import { EventResDto } from "../dto/requestchange/event-res.dto";
-import { EventReqDto } from "../dto/requestchange/event-req.dto";
-import { ReqChangeReqDto } from "../dto/requestchange/request-change-req.dto";
-import { ReqChangeResDto } from "../dto/requestchange/request-change-res.dto";
+import { UpdateChangeReqDto } from "../dto/changeapproval/update-change-req.dto";
+import { UpdateChangeResDto } from "../dto/changeapproval/update-change-res.dto";
+import { GetChangeResDto } from "../dto/changeapproval/get-change-res.dto";
+import { GetChangeReqDto } from "../dto/changeapproval/get-change-req.dto";
 
 @Injectable({
     providedIn: 'root'
@@ -27,30 +26,18 @@ export class PsService {
         return this.http.post<CreateCalendarResDto>(`${this.apiUrl}/createschedule`, requestData, { headers });
     }
 
-    getEvents(reqDto: EventReqDto): Observable<EventResDto> {
-        const token = localStorage.getItem('token');
+    updateChangeRequest(requestData: UpdateChangeReqDto): Observable<UpdateChangeResDto> {
         const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         });
-
-        return this.http.post<EventResDto>(`${this.apiUrl}/getevents`, reqDto, { headers });
+        return this.http.post<UpdateChangeResDto>(`${this.apiUrl}/updatechangereq`, requestData, { headers });
     }
 
-    getClientAssignmentById(id: number): Observable<GetAssignmentDto> {
-        const token = localStorage.getItem('token');
+    getChangeRequest(requestData: GetChangeReqDto): Observable<GetChangeResDto> {
         const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            // 'Content-Type': 'application/json'
         });
-
-        return this.http.get<GetAssignmentDto>(`${this.apiUrl}/getbyid?id=${id}`, { headers });
-    }
-
-    requestChange(reqDto: ReqChangeReqDto): Observable<ReqChangeResDto> {
-        const token = localStorage.getItem('token');
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-
-        return this.http.post<ReqChangeResDto>(`${this.apiUrl}/requestchange`, reqDto, {headers});
+        return this.http.post<GetChangeResDto>(`${this.apiUrl}/getchangereq`, requestData, {headers});
     }
 }
