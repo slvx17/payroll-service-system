@@ -1,25 +1,43 @@
 <app-navbar></app-navbar>
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="p-field">
-      <label for="monthYear">Month & Year</label>
-      <p-calendar id="monthYear" [(ngModel)]="form.value.monthYear" [view]="'month'" dateFormat="mm/yy" formControlName="monthYear"></p-calendar>
-    </div>
+        <label for="monthYear">Month & Year</label>
+        <p-calendar id="monthYear" 
+                    [view]="'month'" 
+                    dateFormat="mm/yy" 
+                    formControlName="monthYear"
+                    (onSelect)="onMonthYearSelect($event)"
+                    [selectOtherMonths]="true"
+                    [showIcon]="true">
+        </p-calendar>
+      </div>
+      
 
     <div class="p-field">
-      <label for="selectedEvent">Event Deadline</label>
-      <p-dropdown formControlName="selectedEvent" [options]="cities" optionLabel="name" placeholder="Select an event"></p-dropdown>
+        <label for="selectedEvent">Event Deadline</label>
+        <p-dropdown 
+            [options]="events" 
+            optionLabel="deadlineDate" 
+            placeholder="Select an event"
+            (onChange)="onEventSelect($event)"
+            formControlName="selectedEvent">
+            
+        </p-dropdown>
     </div>
-  
+    
+
     <div class="p-field">
-      <label for="newDate">New Date</label>
-      <p-calendar id="newDate" [(ngModel)]="form.value.newDate" formControlName="newDate"></p-calendar>
+        <label for="newDate">New Date</label>
+        <p-calendar id="newDate" formControlName="newDate" 
+        [minDate]="minDate" [maxDate]="maxDate"></p-calendar>
     </div>
-  
-    <div class="p-field">
-      <label for="message">Reasoning</label>
-      <textarea id="message" rows="5" cols="30" pInputTextarea formControlName="message"></textarea>
-    </div>
-  
-    <button type="submit">Submit</button>
-  </form>
-  
+    
+
+  <div class="p-field">
+    <label for="message">Reasoning</label>
+    <textarea id="message" rows="5" cols="10" pInputTextarea 
+    formControlName="message" maxlength="50"></textarea>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>

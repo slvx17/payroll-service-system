@@ -56,6 +56,7 @@ public class UserController {
         claims.put("id", userOptional.get().getId());
 		
 		LoginResDto result = new LoginResDto();
+		result.setId(userOptional.get().getId());		
 		result.setToken(jwtService.generateJwt(claims));
 		result.setEmail(userOptional.get().getEmail());
 		result.setRole(userOptional.get().getRole().getRoleCode());		

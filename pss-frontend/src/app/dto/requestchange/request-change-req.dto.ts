@@ -1,5 +1,5 @@
 export class ReqChangeReqDto {
-    date!: Date;
+    dateId!: number;
     newDate!: Date;
     message!: string;
 }

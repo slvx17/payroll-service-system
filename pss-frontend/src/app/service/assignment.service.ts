@@ -24,7 +24,7 @@ export class AssignmentService {
     getClientByEmail(email: string): Observable<UserResDto> {
         const params = new HttpParams().set('email', email);
         const headers = new HttpHeaders({
-            'Authorization': 'Bearer ' + localStorage.getItem('token')
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
         });
         return this.http.get<UserResDto>(`${this.baseUrl}/getclientbyemail`, { params, headers });
     }

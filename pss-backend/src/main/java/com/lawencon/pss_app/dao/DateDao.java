@@ -1,7 +1,6 @@
 package com.lawencon.pss_app.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.lawencon.pss_app.model.Date;
 import com.lawencon.pss_app.model.Schedule;

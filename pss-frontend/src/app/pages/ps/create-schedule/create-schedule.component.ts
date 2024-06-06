@@ -46,12 +46,15 @@ export class CreateScheduleComponent {
     this.maxDate = new Date(this.minDate.getFullYear(), this.minDate.getMonth() + 1, 0); 
   }
 
-  onSubmit(): void {
+  onSubmit(){
     if (this.userForm.valid) {
       const formValue = this.userForm.value;
+      var month = formValue.monthYear;
+      if(month.getMonth>8)month=`${month.getFullYear()}-${month.getMonth() + 1}`;  
+      else month=`${month.getFullYear()}-0${month.getMonth() + 1}`; 
       const requestData = {
         userEmail: formValue.userEmail,
-        monthYear: formValue.monthYear.toISOString().substring(0, 7), 
+        monthYear: month, 
         sendDataDate: formValue.sendData.toISOString().substring(0, 10),
         payrollReportDate: formValue.payrollReport.toISOString().substring(0, 10),
         bankUploadDate: formValue.bankUpload.toISOString().substring(0, 10),

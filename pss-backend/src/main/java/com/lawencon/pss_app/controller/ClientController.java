@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lawencon.pss_app.dto.calendar.CalendarReqDto;
 import com.lawencon.pss_app.dto.calendar.CalendarResDto;
+import com.lawencon.pss_app.dto.clientassignment.GetAssignmentDto;
 import com.lawencon.pss_app.dto.reqchange.EventReqDto;
 import com.lawencon.pss_app.dto.reqchange.EventResDto;
 import com.lawencon.pss_app.dto.reqchange.ReqChangeReqDto;
@@ -51,20 +52,22 @@ public class ClientController {
 	@PostMapping("/requestchange")
 	public ResponseEntity<ReqChangeResDto> requestChange(@RequestBody ReqChangeReqDto reqDto) {
         ReqChangeResDto result = changeRequestService.processChangeRequest(reqDto);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<ReqChangeResDto>(result, HttpStatus.CREATED);
     }
 	
 	@PostMapping("/getevents")
 	public ResponseEntity<EventResDto> requestChange(@RequestBody EventReqDto reqDto) {
         EventResDto result = changeRequestService.getEvents(reqDto);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<EventResDto>(result, HttpStatus.CREATED);
     }
 	
 	@GetMapping("/getbyid")
-    public ResponseEntity<ClientAssignment> getUserById(@RequestParam Long id) {
+    public ResponseEntity<GetAssignmentDto> getUserById(@RequestParam Long id) {
         User user = userService.getById(id);
+        
         ClientAssignment assignment = assignmentService.getByClient(user);
-        return ResponseEntity.ok(assignment);
+        GetAssignmentDto res = new GetAssignmentDto(assignment.getId(), "found assignment");
+        return new ResponseEntity<GetAssignmentDto>(res, HttpStatus.CREATED);
     }
 	
 	

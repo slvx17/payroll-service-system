@@ -6,7 +6,7 @@ public class UserResDto {
 	private String email;
     private String message;
     
-	public UserResDto(Long id, String username, String message, String email) {
+	public UserResDto(Long id, String username, String email, String message) {
 		this.id = id;
 		this.username = username;
 		this.message = message;
@@ -25,12 +25,14 @@ public class UserResDto {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getmessage() {
-		return message;
-	}
-	public void setmessage(String message) {
-		this.message = message;
-	}
+	
+	public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 	public String getEmail() {
 		return email;
@@ -40,13 +42,6 @@ public class UserResDto {
 		this.email = email;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
     
     
 }

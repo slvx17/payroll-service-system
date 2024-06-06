@@ -13,24 +13,26 @@ public class RequestStatusType {
 
     @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "request_name", nullable = false, length = 50)
     private String requestName;
 
     @Column(name = "request_code", nullable = false, length = 5)
     private String requestCode;
+    
+    public RequestStatusType() {};
 
     public RequestStatusType(RequestStatusTypeEnum reqstatenum) {
     	this.requestName = reqstatenum.getRequestName();
     	this.requestCode = reqstatenum.getRequestCode();
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

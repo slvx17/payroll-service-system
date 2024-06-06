@@ -2,19 +2,17 @@ package com.lawencon.pss_app.dto.reqchange;
 
 import java.time.LocalDate;
 
-import com.lawencon.pss_app.model.Date;
-
 public class ReqChangeReqDto {
-    private Date date;
+    private Long dateId;
     private LocalDate newDate;
     private String message;
 
-    public Date getDate() {
-        return date;
+    public Long getDateId() {
+        return dateId;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateId(Long dateId) {
+        this.dateId = dateId;
     }
 
     public LocalDate getNewDate() {

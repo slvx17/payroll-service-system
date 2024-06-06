@@ -71,7 +71,7 @@ export class AssignUserComponent implements OnInit {
         this.selectedClientUser = res;
       },
       error: (res) => {
-        console.log(res.message)
+        console.log(res)
       }
     });
   }

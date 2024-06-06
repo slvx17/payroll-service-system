@@ -16,10 +16,10 @@ export class AuthService {
         return this.http.post<LoginResDto>('http://localhost:8080/login', dto)
     }
 
-    saveLocal(token: string, role: string, id: number, email: string){
+    saveLocal(token: string, role: string, id: string, email: string){
         localStorage.setItem("token", token)
         localStorage.setItem("role", role)
-        localStorage.setItem("id", JSON.stringify(id))
+        localStorage.setItem("id", id)
         localStorage.setItem("email", email)
     }
 

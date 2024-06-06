@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { CalendarReqDto } from '../dto/calendar/calendar-req.dto';
 import { CalendarResDto } from '../dto/calendar/calendar-res.dto';
@@ -15,14 +15,22 @@ export class ClientCalendarService {
 
     }
     private baseUrl = 'http://localhost:8080/CL';
+    token = localStorage.getItem('token');
 
     calendarGet(dto: CalendarReqDto): Observable<CalendarResDto>  {
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.token}`
+        });
         // console.log(this.http.post<CalendarResDto>('http://localhost:8080/CL/getCalendar', dto))
-        return this.http.post<CalendarResDto>(`${this.baseUrl}/getCalendar`, dto)
+        return this.http.post<CalendarResDto>(`${this.baseUrl}/getCalendar`, dto, { headers })
     }
 
     requestChange(reqDto: ReqChangeReqDto): Observable<ReqChangeResDto> {
-        return this.http.post<ReqChangeResDto>(`${this.baseUrl}/requestchange`, reqDto);
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.token}`
+        });
+
+        return this.http.post<ReqChangeResDto>(`${this.baseUrl}/requestchange`, reqDto, { headers });
     }
 
 

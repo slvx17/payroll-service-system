@@ -5,14 +5,24 @@ public class LoginResDto {
 	private String role;
 	private String token;
 	private String email;
+	private Long id;
 
 	public LoginResDto() {
 		
 	}
 	
-	public LoginResDto(String string, String email) {
+	public LoginResDto(String string, String email, Long id) {
 		this.token = string;
 		this.email = email;
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {
