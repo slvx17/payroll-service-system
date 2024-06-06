@@ -2,9 +2,18 @@
 <p-toolbar>
     <div class="p-toolbar-group-start">
         <span class="p-input-icon-left">
-            <i class="pi pi-search"></i>
-            <input pInputText [(ngModel)]="searchTerm" placeholder="Enter client email"/> 
-            <button pButton type="submit" label="Search" (click)="searchUserEmail()"></button>
+            <p-dropdown 
+          [options]="users" 
+          [(ngModel)]="selectedPayrollServiceUserId" 
+          optionLabel="label" 
+          optionValue="value.id" 
+          filter="true" 
+          filterBy="label"
+          placeholder="Select a user"
+          [showClear]="true"
+          [dropdownIcon]="'pi pi-chevron-down'"
+          (onChange)="onUserSelect($event.value)">
+      </p-dropdown>
         </span>
     </div>
     <div class="p-toolbar-group-end">

@@ -54,7 +54,7 @@ export class LoginComponent {
         const loginReqRaw = this.loginReq.getRawValue();
         this.authService.login(loginReqRaw).subscribe({
             next: (res) => {
-                this.authService.saveLocal(res.token, res.role, res.id);
+                this.authService.saveLocal(res.token, res.role, res.id, res.email);
                 this.router.navigate([`${res.role}/dashboard`]);
                 this.loading = false;
             },

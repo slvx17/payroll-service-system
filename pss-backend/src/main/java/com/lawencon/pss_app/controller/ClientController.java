@@ -28,5 +28,4 @@ public class ClientController {
 		CalendarResDto result = calendarService.getAllDeadlines(param);
 		return new ResponseEntity<CalendarResDto>(result, HttpStatus.CREATED);
 	}
-	
 }

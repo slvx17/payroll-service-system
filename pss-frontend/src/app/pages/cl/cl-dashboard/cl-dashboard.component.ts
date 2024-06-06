@@ -7,7 +7,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../service/auth.service';
-import { ClientCalendarService } from '../../../service/clientcalendar.service';
+import { ClientCalendarService } from '../../../service/calendar.service';
 import { CalendarResDto } from '../../../dto/calendar/calendar-res.dto';
 
 @Component({
@@ -59,6 +59,7 @@ export class ClDashboardComponent {
       this.date = res.deadline;
       this.eventName = res.deadlineType;
       console.log(this.date)
+      console.log("Loaded!")
 
       for (let i = 0; i < this.date.length; i++) {
         let newEvent = {title: this.eventName[i], date: this.date[i]}

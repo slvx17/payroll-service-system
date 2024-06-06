@@ -36,6 +36,12 @@ public class AssignmentController {
         return ResponseEntity.ok(psUsers); 
     }
 	
+	@GetMapping("/getallc")
+    public ResponseEntity<List<User>> getAllC() {
+        List<User> cUsers = userService.getAllC();
+        return ResponseEntity.ok(cUsers); 
+    }
+	
 	@GetMapping("/getclientbyemail")
     public ResponseEntity<UserResDto> getClientByEmail(@RequestParam String email) {
         User client = userService.getClientByEmail(email);

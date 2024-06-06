@@ -15,7 +15,9 @@ public interface UserService extends UserDetailsService {
 
 	Optional<User> getByEmail(String email);
 	List<User> getAllPs();
+	List<User> getAllC();
 	User getClientByEmail(String email);
 	UserRegisResDto createUser(UserRegisReqDto reqDto);
 	LoginResDto authenticateUser(LoginReqDto loginReqDto);
+	List<User> getClientsByPs(String email);
 }

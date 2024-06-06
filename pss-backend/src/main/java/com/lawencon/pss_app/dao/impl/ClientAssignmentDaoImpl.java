@@ -53,4 +53,9 @@ public class ClientAssignmentDaoImpl implements ClientAssignmentDao {
 		clientAssignmentRepo.deleteById(clientAssignment.getId());
 	}
 
+	@Override
+	public List<ClientAssignment> findByPs(User user) {
+		return clientAssignmentRepo.findByPs(user);
+	}
+
 }

@@ -14,11 +14,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.pss_app.constant.RoleEnum;
+import com.lawencon.pss_app.dao.ClientAssignmentDao;
 import com.lawencon.pss_app.dao.UserDao;
 import com.lawencon.pss_app.dto.user.LoginReqDto;
 import com.lawencon.pss_app.dto.user.LoginResDto;
 import com.lawencon.pss_app.dto.user.UserRegisReqDto;
 import com.lawencon.pss_app.dto.user.UserRegisResDto;
+import com.lawencon.pss_app.model.ClientAssignment;
 import com.lawencon.pss_app.model.Role;
 import com.lawencon.pss_app.model.User;
 import com.lawencon.pss_app.service.UserService;
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService {
 	
 	private UserDao userDAO;
     private PasswordEncoder encoder;
+    private ClientAssignmentDao clientAssignmentDAO;
 
     public UserServiceImpl(UserDao userDAO
     		, PasswordEncoder encoder
@@ -47,6 +50,12 @@ public class UserServiceImpl implements UserService {
 	public List<User> getAllPs() {
 		List<User> psUsers = userDAO.findByRole(new Role(RoleEnum.PAYROLL_SERVICE));
 		return psUsers;
+	}
+
+	@Override
+	public List<User> getAllC() {
+		List<User> cUsers = userDAO.findByRole(new Role(RoleEnum.CLIENT));
+		return cUsers;
 	}
 
 
@@ -101,4 +110,18 @@ public class UserServiceImpl implements UserService {
 		User user = userDAO.findByEmail(email);
 		return new org.springframework.security.core.userdetails.User(email, user.getUserPassword(), new ArrayList<>());
 	}
+
+
+	@Override
+	public List<User> getClientsByPs(String email) {
+		User Ps = userDAO.findByEmail(email);
+		List<User> result = null;
+		
+		List<ClientAssignment> assignments = clientAssignmentDAO.findByPs(Ps);
+		for (ClientAssignment assignment : assignments) {
+	        result.add(assignment.getClient());
+	    }
+		return result;
+	}
+
 }

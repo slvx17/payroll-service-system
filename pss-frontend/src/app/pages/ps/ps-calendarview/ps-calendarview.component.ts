@@ -14,7 +14,9 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { ClientCalendarService } from '../../../service/clientcalendar.service';
+import { ClientCalendarService } from '../../../service/calendar.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-ps-dashboard',
@@ -26,7 +28,8 @@ import { ClientCalendarService } from '../../../service/clientcalendar.service';
     NavbarComponent,
     ButtonModule,
     ToolbarModule,
-    FullCalendarModule
+    FullCalendarModule,
+    DropdownModule,
   ],
   templateUrl: './ps-calendarview.component.html',
   styleUrl: './ps-calendarview.component.css'
@@ -47,6 +50,10 @@ export class PSCalendarViewComponent {
   eventName: string[] = [];
   allEvents: { title: string, date: string }[] = [];
 
+
+  selectedPayrollServiceUserId: number = 0;
+  users: SelectItem[] = [];
+
   constructor(private fb:NonNullableFormBuilder, private http: HttpClient, private assignmentService: AssignmentService, private clientCalendarService: ClientCalendarService, private router: Router) { }
 
   calendarOptions: CalendarOptions = {
@@ -58,7 +65,8 @@ export class PSCalendarViewComponent {
   };
 
 
-  searchUserEmail() {
+  onUserSelect(user:string) {
+    this.searchTerm = user;
     this.searchMade = true;
     this.assignmentService.getClientByEmail(this.searchTerm).subscribe({
       next: (clientUser) => {
@@ -105,5 +113,12 @@ export class PSCalendarViewComponent {
       }
       this.calendarOptions.events = this.allEvents;
   }})
-}
+  }
+
+  ngOnInit():void {
+    this.assignmentService.getAllC().subscribe(cUsers => {
+      console.log(this.users)
+      this.users = cUsers.map(user => ({ label: user.username, value: user }));
+    });
+  }
 }

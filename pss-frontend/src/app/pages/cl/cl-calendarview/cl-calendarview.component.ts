@@ -7,7 +7,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../../service/auth.service';
-import { ClientCalendarService } from '../../../service/clientcalendar.service';
+import { ClientCalendarService } from '../../../service/calendar.service';
 import { CalendarResDto } from '../../../dto/calendar/calendar-res.dto';
 
 @Component({

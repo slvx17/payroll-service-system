@@ -21,6 +21,13 @@ export class AssignmentService {
         return this.http.get<UserResDto[]>(`${this.baseUrl}/getallps`, { headers });
     }
 
+    getAllC(): Observable<UserResDto[]> {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.get<UserResDto[]>(`${this.baseUrl}/getallc`, { headers });
+    }
+
     getClientByEmail(email: string): Observable<UserResDto> {
         const params = new HttpParams().set('email', email);
         const headers = new HttpHeaders({

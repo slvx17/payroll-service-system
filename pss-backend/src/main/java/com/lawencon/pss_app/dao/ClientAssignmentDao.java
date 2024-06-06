@@ -6,7 +6,8 @@ import com.lawencon.pss_app.model.ClientAssignment;
 import com.lawencon.pss_app.model.User;
 
 public interface ClientAssignmentDao {
-	ClientAssignment findByClient(User user); 
+	ClientAssignment findByClient(User user);
+	List<ClientAssignment> findByPs(User user);
 	ClientAssignment create(ClientAssignment ClientAssignment);
 	ClientAssignment findById(Long id);
 	List<ClientAssignment> findAll();
