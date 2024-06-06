@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<form [formGroup]="form">
+    <div class="p-field">
+      <label for="monthYear">Month & Year</label>
+      <p-calendar id="monthYear" [(ngModel)]="form.value.monthYear" [view]="'month'" dateFormat="mm/yy" formControlName="monthYear"></p-calendar>
+    </div>
+
+    <div class="p-field">
+      <label for="selectedEvent">Event Deadline</label>
+      <p-dropdown formControlName="selectedEvent" [options]="cities" optionLabel="name" placeholder="Select an event"></p-dropdown>
+    </div>
+  
+    <div class="p-field">
+      <label for="newDate">New Date</label>
+      <p-calendar id="newDate" [(ngModel)]="form.value.newDate" formControlName="newDate"></p-calendar>
+    </div>
+  
+    <div class="p-field">
+      <label for="message">Reasoning</label>
+      <textarea id="message" rows="5" cols="30" pInputTextarea formControlName="message"></textarea>
+    </div>
+  
+    <button type="submit">Submit</button>
+  </form>
+  

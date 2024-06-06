@@ -36,6 +36,10 @@ public class UserServiceImpl implements UserService {
     	this.encoder = encoder;
     }
 
+    @Override 
+    public User getById(Long id) {
+    	return userDAO.findById(id);
+    }
     
     @Override
 	public Optional<User> getByEmail(String email){

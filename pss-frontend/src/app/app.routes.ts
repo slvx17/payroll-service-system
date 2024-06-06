@@ -6,6 +6,8 @@ import { SaDashboardComponent } from './pages/sa/sa-dashboard/sa-dashboard.compo
 import { CreateUserComponent } from './pages/sa/create-user/create-user.component';
 import { AssignUserComponent } from './pages/sa/assign-user/assign-user.component';
 import { CreateScheduleComponent } from './pages/ps/create-schedule/create-schedule.component';
+import { ViewCalendarComponent } from './pages/cl/view-calendar/view-calendar.component';
+import { RequestChangeComponent } from './pages/cl/request-change/request-change.component';
 
 export const routes: Routes = [
 
@@ -13,15 +15,6 @@ export const routes: Routes = [
         path: "login",
         component: LoginComponent,
     }, { path: '', redirectTo: '/login', pathMatch: 'full' }, 
-    {
-        path: "CL/dashboard",
-        component: ClDashboardComponent
-    },
-
-    // {
-    //     path: "SA/dashboard",
-    //     component: SaDashboardComponent
-    // },
     {
         path: "PS/dashboard",
         component: PsDashboardComponent
@@ -38,5 +31,14 @@ export const routes: Routes = [
     {
         path:"PS/createschedule",
         component: CreateScheduleComponent
+    },
+    {
+        path:"CL/viewcalendar",
+        component: ViewCalendarComponent
+    }
+    ,{ path: 'CL/dashboard', redirectTo: "CL/viewcalendar", pathMatch: 'full' }, 
+    {
+        path:"CL/requestchange",
+        component: RequestChangeComponent
     },
 ];

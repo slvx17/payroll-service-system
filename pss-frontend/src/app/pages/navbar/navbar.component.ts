@@ -74,8 +74,8 @@ export class NavbarComponent implements OnInit {
 
     const clItems: MenuItem[] = [
       ...commonItems,
-      { label: 'View Calendar', icon: 'pi pi-calendar', routerLink: ['/view-calendar'] },
-      { label: 'Request Change', icon: 'pi pi-send', routerLink: ['/request-change'] },
+      { label: 'View Calendar', icon: 'pi pi-calendar', routerLink: ['/CL/viewcalendar'] },
+      { label: 'Request Change', icon: 'pi pi-send', routerLink: ['/CL/requestchange'] },
     ]
 
     if(role=="CL")return clItems;

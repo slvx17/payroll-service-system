@@ -21,6 +21,9 @@ public class ChangeRequest {
     @ManyToOne
     @JoinColumn(name = "request_status_id")
     private RequestStatusType requestStatus;
+    
+    @Column
+    private String message;
 
     public ChangeRequest() {
     }
@@ -56,4 +59,14 @@ public class ChangeRequest {
     public void setRequestStatus(RequestStatusType requestStatus) {
         this.requestStatus = requestStatus;
     }
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+    
+    
 }

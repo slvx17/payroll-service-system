@@ -19,8 +19,23 @@ public class ScheduleDaoImpl implements ScheduleDao {
     }
     
     @Override
-    public List<Schedule> getByClientAssignment(ClientAssignment clientAssignment) {
+    public List<Schedule> findByClientAssignment(ClientAssignment clientAssignment) {
         return scheduleRepo.findByClientAssignment(clientAssignment);
+    }
+    
+    @Override
+    public Optional<Schedule> findById(Long id) {
+        return scheduleRepo.findById(id);
+    }
+    
+    @Override
+    public Schedule findByAssignmentAndMonth(Long assignId, String monthYear) {
+    	return scheduleRepo.findByClientAssignment_IdAndMonthYear(assignId, monthYear);
+    }
+    
+    @Override
+    public Schedule findByMonthYear(String monthYear) {
+    	return scheduleRepo.findByMonthYear(monthYear);
     }
 
     @Override
@@ -31,11 +46,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
     @Override
     public Schedule update(Schedule schedule) {
         return scheduleRepo.save(schedule);  
-    }
-
-    @Override
-    public Optional<Schedule> findById(Long id) {
-        return scheduleRepo.findById(id);
     }
 
     @Override

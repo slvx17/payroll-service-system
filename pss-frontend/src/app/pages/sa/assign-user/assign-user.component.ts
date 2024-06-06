@@ -32,6 +32,7 @@ export class AssignUserComponent implements OnInit {
   private DEFAULT_USER: UserResDto = {
     id: 0,
     username: 'No Selection',
+    email: 'example@example.com',
     message: 'no action yet'
   };
 

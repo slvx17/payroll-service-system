@@ -7,6 +7,14 @@ public enum RequestStatusTypeEnum {
 
     private final String requestName;
     private final String requestCode;
+    
+    public static  RequestStatusTypeEnum getById(int id) {
+        return  RequestStatusTypeEnum.values()[id - 1];
+    }
+
+    public int getId() {
+        return ordinal() + 1;
+    }
 
     RequestStatusTypeEnum(String requestName, String requestCode) {
         this.requestName = requestName;

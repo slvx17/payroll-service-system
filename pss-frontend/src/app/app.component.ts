@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -6,6 +7,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [
     RouterModule,
+    // BrowserModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

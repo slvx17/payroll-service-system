@@ -1,7 +1,6 @@
 package com.lawencon.pss_app.dao.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +18,7 @@ public class DateDaoImpl implements DateDao {
     }
     
     @Override
-    public List<Date> getBySchedule(Schedule schedule) {
+    public List<Date> findBySchedule(Schedule schedule) {
         return dateRepo.findBySchedule(schedule);
     }
 
@@ -34,8 +33,8 @@ public class DateDaoImpl implements DateDao {
     }
 
     @Override
-    public Optional<Date> findById(Long id) {
-        return dateRepo.findById(id);
+    public Date findById(Long id) {
+        return dateRepo.findById(id).orElse(null);
     }
 
     @Override

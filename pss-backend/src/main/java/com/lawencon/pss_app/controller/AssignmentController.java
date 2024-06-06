@@ -42,11 +42,11 @@ public class AssignmentController {
         UserResDto res;
         if(client != null) 
         {
-        	if(clientAssignmentService.getByClient(client) != null)res = new UserResDto(client.getId(), client.getUsername(), "This client is already assigned");
-        	else res = new UserResDto(client.getId(), client.getUsername(), "Success");
+        	if(clientAssignmentService.getByClient(client) != null)res = new UserResDto(client.getId(), client.getUsername(), client.getEmail(), "This client is already assigned");
+        	else res = new UserResDto(client.getId(), client.getUsername(), client.getEmail(), "Success");
         	
         }
-        else res = new UserResDto(null, null, "User with this email not found");
+        else res = new UserResDto(null, null, null, "User with this email not found");
         
         return ResponseEntity.ok(res);
     }

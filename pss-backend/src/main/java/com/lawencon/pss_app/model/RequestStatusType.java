@@ -2,10 +2,6 @@ package com.lawencon.pss_app.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -16,17 +12,18 @@ import com.lawencon.pss_app.constant.RequestStatusTypeEnum;
 public class RequestStatusType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "request_name", nullable = false, length = 50)
     private String requestName;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "request_code", nullable = false, length = 5)
-    private RequestStatusTypeEnum requestCode;
+    private String requestCode;
 
-    public RequestStatusType() {
+    public RequestStatusType(RequestStatusTypeEnum reqstatenum) {
+    	this.requestName = reqstatenum.getRequestName();
+    	this.requestCode = reqstatenum.getRequestCode();
     }
 
     public Long getId() {
@@ -45,11 +42,13 @@ public class RequestStatusType {
         this.requestName = requestName;
     }
 
-    public RequestStatusTypeEnum getRequestCode() {
-        return requestCode;
-    }
+	public String getRequestCode() {
+		return requestCode;
+	}
 
-    public void setRequestCode(RequestStatusTypeEnum requestCode) {
-        this.requestCode = requestCode;
-    }
+	public void setRequestCode(String requestCode) {
+		this.requestCode = requestCode;
+	}
+
+    
 }

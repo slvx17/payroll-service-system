@@ -7,7 +7,11 @@ import com.lawencon.pss_app.model.ClientAssignment;
 import com.lawencon.pss_app.model.Schedule;
 
 public interface ScheduleDao {
-	List<Schedule> getByClientAssignment(ClientAssignment clientAssignment);
+	List<Schedule> findByClientAssignment(ClientAssignment clientAssignment);
+	
+	Schedule findByMonthYear(String monthYear);
+
+	Schedule findByAssignmentAndMonth(Long assignId, String monthYear);
 
 	Schedule create(Schedule schedule);
 

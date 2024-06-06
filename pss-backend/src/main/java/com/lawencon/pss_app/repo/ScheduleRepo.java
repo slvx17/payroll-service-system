@@ -11,4 +11,6 @@ import com.lawencon.pss_app.model.Schedule;
 @Repository
 public interface ScheduleRepo extends JpaRepository<Schedule, Long>{
 	List<Schedule> findByClientAssignment(ClientAssignment clientAssignment);
+	Schedule findByMonthYear(String monthYear);
+	Schedule findByClientAssignment_IdAndMonthYear(Long clientAssignmentId, String monthYear);
 }
