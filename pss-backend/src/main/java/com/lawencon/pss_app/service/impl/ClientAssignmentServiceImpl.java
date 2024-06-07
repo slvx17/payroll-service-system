@@ -1,5 +1,7 @@
 package com.lawencon.pss_app.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.lawencon.pss_app.dao.ClientAssignmentDao;
@@ -36,6 +38,21 @@ public class ClientAssignmentServiceImpl implements ClientAssignmentService {
 	@Override
 	public ClientAssignment getByClient(User user) {
 		ClientAssignment res = clientAssignmentDao.findByClient(user);
+		return res;
+	}
+
+
+	@Override
+	public List<ClientAssignment> getByPs(User user) {
+		List<ClientAssignment> res = clientAssignmentDao.findByPs(user);
+//		for (ClientAssignment eachres:res) {
+//			if (eachres.getClient().getRole().getRoleName() == "Client") {
+//				continue;
+//			}
+//			else {
+//				res.remove(eachres);
+//			}
+//		}
 		return res;
 	}
 

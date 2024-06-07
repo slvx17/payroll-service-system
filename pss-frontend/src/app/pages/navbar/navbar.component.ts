@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +16,8 @@ import { MenubarModule } from 'primeng/menubar';
     MenubarModule,
     RouterModule,
     NavbarComponent,
+    ButtonModule,
+    OverlayPanelModule
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -36,7 +40,7 @@ export class NavbarComponent implements OnInit {
 
     this.endItems = [
       { label: 'Chat', icon: 'pi pi-inbox', routerLink: ['/chat'] },
-      { label: 'Notifications', icon: 'pi pi-bell', routerLink: ['/notifications'] },
+      { label: 'Notifications', icon: 'pi pi-bell', routerLink: ['/notifications'], command: () => { console.log('Open Notifications'); }},
       {
         label: "Profile", icon:"pi pi-user", items: [
           { label: 'User Settings', icon: 'pi pi-cog', routerLink: ['/setting'], styleClass: 'ml-auto' },
@@ -66,7 +70,7 @@ export class NavbarComponent implements OnInit {
 
     const psItems: MenuItem[] = [
       ...commonItems,
-      { label: 'Client Schedules', icon: 'pi pi-calendar', routerLink: ['/calendar-list'] },
+      { label: 'Client Schedules', icon: 'pi pi-calendar', routerLink: ['/PS/calendarview'] },
       { label: 'Documents', icon: 'pi pi-file', routerLink: ['/client-calendar'] },
       { label: 'Create Client Schedule', icon: 'pi pi-calendar-plus', routerLink: ['/PS/createschedule'] },
       { label: 'Schedule Change Approval', icon: 'pi pi-check-circle', routerLink: ['/PS/schedulechangeapproval'] },

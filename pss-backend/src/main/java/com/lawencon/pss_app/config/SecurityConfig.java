@@ -46,6 +46,8 @@ public class SecurityConfig {
 		matchers.add(new AntPathRequestMatcher("/login", HttpMethod.POST.name()));
 		matchers.add(new AntPathRequestMatcher("/register", HttpMethod.POST.name()));
 		matchers.add(new AntPathRequestMatcher("/CL/getevents", HttpMethod.POST.name()));
+		matchers.add(new AntPathRequestMatcher("/assignuser/getallcbyps", HttpMethod.POST.name()));
+		matchers.add(new AntPathRequestMatcher("/CL/getcalendar", HttpMethod.POST.name()));
 		return matchers; 
 	}
 	

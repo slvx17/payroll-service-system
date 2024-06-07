@@ -9,6 +9,7 @@ import { CreateScheduleComponent } from './pages/ps/create-schedule/create-sched
 import { ViewCalendarComponent } from './pages/cl/view-calendar/view-calendar.component';
 import { RequestChangeComponent } from './pages/cl/request-change/request-change.component';
 import { ScheduleChangeApprovalComponent } from './pages/ps/schedule-change-approval/schedule-change-approval.component';
+import { PSCalendarViewComponent } from './pages/ps/ps-calendarview/ps-calendarview.component';
 
 export const routes: Routes = [
 
@@ -45,5 +46,9 @@ export const routes: Routes = [
     {
         path:"CL/requestchange",
         component: RequestChangeComponent
+    },
+    {
+        path:"PS/calendarview",
+        component: PSCalendarViewComponent
     }
 ];

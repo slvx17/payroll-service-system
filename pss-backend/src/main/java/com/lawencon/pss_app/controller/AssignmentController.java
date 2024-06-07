@@ -1,5 +1,6 @@
 package com.lawencon.pss_app.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lawencon.pss_app.dto.calendar.CalendarReqDto;
 import com.lawencon.pss_app.dto.clientassignment.AssignUserResDto;
 import com.lawencon.pss_app.dto.clientassignment.CreateAssignmentReqDto;
 import com.lawencon.pss_app.dto.user.UserResDto;
+import com.lawencon.pss_app.model.ClientAssignment;
+import com.lawencon.pss_app.model.Schedule;
 import com.lawencon.pss_app.model.User;
 import com.lawencon.pss_app.service.ClientAssignmentService;
 import com.lawencon.pss_app.service.UserService;
@@ -35,6 +39,23 @@ public class AssignmentController {
         List<User> psUsers = userService.getAllPs();
         return ResponseEntity.ok(psUsers); 
     }
+	
+	@GetMapping("/getallc")
+    public ResponseEntity<List<User>> getAllC() {
+        List<User> cUsers = userService.getAllC();
+        return ResponseEntity.ok(cUsers); 
+    }
+	
+	@PostMapping("/getallcbyps")
+	public ResponseEntity<List<User>> getAllCByPs(@RequestBody CalendarReqDto calendarReq) {
+		User user = userService.getByEmail(calendarReq.getEmail());
+		List<User> cUsers = new ArrayList<>();
+		List<ClientAssignment> clientAssignment = clientAssignmentService.getByPs(user);
+		for (ClientAssignment eachclientAssignment : clientAssignment) {
+			cUsers.add(eachclientAssignment.getClient());
+		}
+		return ResponseEntity.ok(cUsers);
+	}
 	
 	@GetMapping("/getclientbyemail")
 	public ResponseEntity<UserResDto> getClientByEmail(@RequestParam String email) {

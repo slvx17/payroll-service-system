@@ -13,8 +13,9 @@ import com.lawencon.pss_app.model.User;
 
 public interface UserService extends UserDetailsService {
 
-	Optional<User> getByEmail(String email);
+	User getByEmail(String email);
 	List<User> getAllPs();
+	List<User> getAllC();
 	User getById(Long id);
 	User getClientByEmail(String email);
 	UserRegisResDto createUser(UserRegisReqDto reqDto);

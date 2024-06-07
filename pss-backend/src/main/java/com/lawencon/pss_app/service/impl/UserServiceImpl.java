@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-	public Optional<User> getByEmail(String email){
+	public User getByEmail(String email){
         User user = userDAO.findByEmail(email);
-        return Optional.ofNullable(user);
+        return user;
     }
     
     @Override
@@ -52,7 +52,12 @@ public class UserServiceImpl implements UserService {
 		List<User> psUsers = userDAO.findByRole(new Role(RoleEnum.PAYROLL_SERVICE));
 		return psUsers;
 	}
-
+    
+    @Override
+	public List<User> getAllC() {
+		List<User> cUsers = userDAO.findByRole(new Role(RoleEnum.CLIENT));
+		return cUsers;
+	}
 
 	@Override
 	public User getClientByEmail(String email) {
