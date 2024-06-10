@@ -1,6 +1,11 @@
 package com.lawencon.pss_app.dao.impl;
 
+import java.util.List;
+
 import com.lawencon.pss_app.dao.NotificationDao;
+import com.lawencon.pss_app.model.Notification;
+import com.lawencon.pss_app.model.User;
+import com.lawencon.pss_app.repo.NotificationRepo;
 
 public class NotificationDaoImpl implements NotificationDao{
 	private final NotificationRepo notificationRepo;
