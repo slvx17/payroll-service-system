@@ -47,5 +47,5 @@ public class ClientAssignmentServiceImpl implements ClientAssignmentService {
 	public List<ClientAssignment> getByPs(User user) {
 		List<ClientAssignment> res = clientAssignmentDao.findByPs(user);
 		return res;
-
+	}
 }
