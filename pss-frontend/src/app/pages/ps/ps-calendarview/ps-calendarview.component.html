@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<p-toolbar>
+    <div class="p-toolbar-group-start">
+        <span class="p-input-icon-left">
+            <p-dropdown 
+          [options]="userlist" 
+          [(ngModel)]="selectedPayrollServiceUserId" 
+          optionLabel="label" 
+          optionValue="value.id" 
+          filter="true" 
+          filterBy="label"
+          placeholder="Select a user"
+          [showClear]="true"
+          [dropdownIcon]="'pi pi-chevron-down'"
+          (onChange)="onUserSelect($event.value)">
+      </p-dropdown>
+        </span>
+    </div>
+    <div class="p-toolbar-group-end">
+        <p *ngIf="searchResult">Username: {{ searchResult.username }}, ID: {{ searchResult.id }}</p>
+    </div>
+</p-toolbar>
+<full-calendar [options]="calendarOptions"></full-calendar>
