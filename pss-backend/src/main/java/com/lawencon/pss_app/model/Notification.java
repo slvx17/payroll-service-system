@@ -11,8 +11,9 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime sendAt;
+    private Timestamp sendAt;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
@@ -39,11 +40,11 @@ public class Notification {
         this.id = id;
     }
 
-    public LocalDateTime getSendAt() {
+    public Timestamp getSendAt() {
         return sendAt;
     }
 
-    public void setSendAt(LocalDateTime sendAt) {
+    public void setSendAt(Timestamp sendAt) {
         this.sendAt = sendAt;
     }
 
