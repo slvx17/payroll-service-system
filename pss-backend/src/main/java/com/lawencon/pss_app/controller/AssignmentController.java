@@ -35,6 +35,17 @@ public class AssignmentController {
         List<User> psUsers = userService.getAllPs();
         return ResponseEntity.ok(psUsers); 
     }
+
+	@PostMapping("/getallcbyps")
+	public ResponseEntity<List<User>> getAllCByPs(@RequestBody EmailReqDto emailReq) {
+		User user = userService.getByEmail(emailReq.getEmail());
+		List<User> cUsers = new ArrayList<>();
+		List<ClientAssignment> clientAssignment = clientAssignmentService.getByPs(user);
+		for (ClientAssignment eachclientAssignment : clientAssignment) {
+			cUsers.add(eachclientAssignment.getClient());
+		}
+		return ResponseEntity.ok(cUsers);
+	}
 	
 	@GetMapping("/getclientbyemail")
 	public ResponseEntity<UserResDto> getClientByEmail(@RequestParam String email) {
