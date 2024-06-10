@@ -1,6 +1,7 @@
 package com.lawencon.pss_app.model;
 
 import java.sql.Timestamp;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,8 +71,8 @@ public class Notification {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setReceiver(User optional) {
+        this.receiver = optional;
     }
 
     public String getMessage() {

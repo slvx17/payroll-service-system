@@ -3,9 +3,9 @@ package com.lawencon.pss_app.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+//import org.springframework.mail.SimpleMailMessage;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import com.lawencon.pss_app.dao.NotificationDao;
@@ -19,8 +19,8 @@ import com.lawencon.pss_app.service.NotificationService;
 public class NotificationServiceImpl implements NotificationService {
 	private UserDao userDAO;
 	private NotificationDao notificationDAO;
-    private JavaMailSender emailSender;
-    private JavaMailSenderImpl javamailsenderimpl;
+//    private JavaMailSender emailSender;
+//    private JavaMailSenderImpl javamailsenderimpl;
 
 	
 	public NotificationServiceImpl(NotificationDao notificationDAO,
@@ -58,11 +58,11 @@ public class NotificationServiceImpl implements NotificationService {
 
 	@Override
 	public Notification create(Notification notification) {
-		SimpleMailMessage message = new SimpleMailMessage(); 
-		message.setFrom("noreply@baeldung.com");
-        message.setTo("arthur.l.wigo@gmail.com"); 
-        message.setSubject("Testing"); 
-        message.setText("Hello this is testing");
+//		SimpleMailMessage message = new SimpleMailMessage(); 
+//		message.setFrom("noreply@baeldung.com");
+//        message.setTo("arthur.l.wigo@gmail.com"); 
+//        message.setSubject("Testing"); 
+//        message.setText("Hello this is testing");
 //        emailSender.send(message);
 		return notificationDAO.create(notification);
 	}
