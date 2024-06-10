@@ -9,4 +9,5 @@ import com.lawencon.pss_app.model.User;
 @Repository
 public interface ClientAssignmentRepo extends JpaRepository<ClientAssignment, Long> {
 	ClientAssignment findByClient(User user);
+	List<ClientAssignment> findByPs(User user);
 }
