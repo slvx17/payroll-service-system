@@ -66,6 +66,22 @@ public class AssignmentController {
 	
 	@PostMapping("/create")
     public ResponseEntity<AssignUserResDto> createAssignment(@RequestBody CreateAssignmentReqDto req) {
+        Notification notificationCL = new Notification();
+        notificationCL.setMessage("You have been assigned to " + userService.getById(req.getPayrollServiceId()).getUsername());
+        notificationCL.setSendAt(Timestamp.valueOf(LocalDateTime.now()));   
+        notificationCL.setReceiver(userService.getById(req.getClientId()));
+        notificationCL.setSender(null);
+        notificationCL.setIsRead(false);
+        notificationService.create(notificationCL);
+        
+        Notification notificationPS = new Notification();
+        notificationPS.setMessage("You have a new client: " + userService.getById(req.getClientId()).getUsername());
+        notificationPS.setSendAt(Timestamp.valueOf(LocalDateTime.now()));   
+        notificationPS.setReceiver(userService.getById(req.getPayrollServiceId()));
+        notificationPS.setSender(null);
+        notificationPS.setIsRead(false);
+        notificationService.create(notificationPS);
+        
 		AssignUserResDto responseDto = clientAssignmentService.createAssignment(req.getClientId(), req.getPayrollServiceId());
         return ResponseEntity.ok(responseDto);
     }
