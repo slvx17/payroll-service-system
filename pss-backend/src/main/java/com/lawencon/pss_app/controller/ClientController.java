@@ -56,7 +56,7 @@ public class ClientController {
     }
 	
 	@PostMapping("/getevents")
-	public ResponseEntity<EventResDto> requestChange(@RequestBody EventReqDto reqDto) {
+	public ResponseEntity<EventResDto> getEvents(@RequestBody EventReqDto reqDto) {
         EventResDto result = changeRequestService.getEvents(reqDto);
         return new ResponseEntity<EventResDto>(result, HttpStatus.CREATED);
     }

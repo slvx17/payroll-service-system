@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.pss_app.dao.ChangeRequestDao;
 import com.lawencon.pss_app.dao.DateDao;
@@ -40,6 +41,7 @@ public class ChangeRequestServiceImpl implements ChangeRequestService{
 		this.scheduleDao = scheduleDao;
 	}
 
+	@Transactional
 	@Override
 	public ReqChangeResDto processChangeRequest(ReqChangeReqDto req) {
 		ChangeRequest changeReq = new ChangeRequest();
@@ -61,6 +63,7 @@ public class ChangeRequestServiceImpl implements ChangeRequestService{
 		return new EventResDto(dates, mess);
 	}
 	
+	@Transactional
 	@Override
 	public UpdateChangeResDto updateReqChange(UpdateChangeReqDto req) {
 		ChangeRequest chReq = changeReqDao.findById(req.getReqId());

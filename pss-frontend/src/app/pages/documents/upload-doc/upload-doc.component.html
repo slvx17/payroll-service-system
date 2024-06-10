@@ -1,0 +1,18 @@
+<app-navbar></app-navbar>
+
+<p>Please select a file to download</p>
+
+<p-dropdown 
+  [options]="events" 
+  [(ngModel)]="selectedEvent" 
+  optionLabel="name" 
+  placeholder="Select an Event to Download Document"
+  optionValue="code">
+</p-dropdown>
+
+<button pButton 
+        type="button" 
+        icon="pi pi-download" 
+        label="Download Document" 
+        (click)="downloadDocument()">
+</button>

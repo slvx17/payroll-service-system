@@ -67,7 +67,12 @@ export class NavbarComponent implements OnInit {
     const psItems: MenuItem[] = [
       ...commonItems,
       { label: 'Client Schedules', icon: 'pi pi-calendar', routerLink: ['/calendar-list'] },
-      { label: 'Documents', icon: 'pi pi-file', routerLink: ['/client-calendar'] },
+      {
+        label: "Document", icon:"pi pi-file", items: [
+          { label: 'Upload', icon: 'pi pi-upload', routerLink: ['/Document/upload'] },
+          { label: 'Download', icon: 'pi pi-download', routerLink: ['/Document/download'] }
+        ]
+      },
       { label: 'Create Client Schedule', icon: 'pi pi-calendar-plus', routerLink: ['/PS/createschedule'] },
       { label: 'Schedule Change Approval', icon: 'pi pi-check-circle', routerLink: ['/PS/schedulechangeapproval'] },
     ]
@@ -75,6 +80,12 @@ export class NavbarComponent implements OnInit {
     const clItems: MenuItem[] = [
       ...commonItems,
       { label: 'View Calendar', icon: 'pi pi-calendar', routerLink: ['/CL/viewcalendar'] },
+      {
+        label: "Document", icon:"pi pi-file", items: [
+          { label: 'Upload', icon: 'pi pi-upload', routerLink: ['/CL/document/upload'] },
+          { label: 'Download', icon: 'pi pi-download', routerLink: ['/CL/document/download'] }
+        ]
+      },
       { label: 'Request Change', icon: 'pi pi-send', routerLink: ['/CL/requestchange'] },
     ]
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.pss_app.dao.ClientAssignmentDao;
 import com.lawencon.pss_app.dao.DateDao;
@@ -67,6 +68,7 @@ public class CalendarServiceImpl implements CalendarService {
 		
 	}
 	
+	@Transactional
 	@Override
 	public CreateScheduleResDto createScheduleAndDates(CreateScheduleReqDto createScheduleReqDto) {
 		String email = createScheduleReqDto.getUserEmail();

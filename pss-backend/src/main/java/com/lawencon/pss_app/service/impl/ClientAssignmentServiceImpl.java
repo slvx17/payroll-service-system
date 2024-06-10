@@ -1,6 +1,7 @@
 package com.lawencon.pss_app.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lawencon.pss_app.dao.ClientAssignmentDao;
 import com.lawencon.pss_app.dao.UserDao;
@@ -21,6 +22,7 @@ public class ClientAssignmentServiceImpl implements ClientAssignmentService {
 	}
 
 
+	@Transactional
 	@Override
 	public AssignUserResDto createAssignment(Long clId, Long psId) {
 		ClientAssignment ca = new ClientAssignment();

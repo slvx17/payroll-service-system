@@ -9,6 +9,8 @@ import { CreateScheduleComponent } from './pages/ps/create-schedule/create-sched
 import { ViewCalendarComponent } from './pages/cl/view-calendar/view-calendar.component';
 import { RequestChangeComponent } from './pages/cl/request-change/request-change.component';
 import { ScheduleChangeApprovalComponent } from './pages/ps/schedule-change-approval/schedule-change-approval.component';
+import { UploadDocComponent } from './pages/documents/upload-doc/upload-doc.component';
+import { DownloadDocComponent } from './pages/documents/download-doc/download-doc.component';
 
 export const routes: Routes = [
 
@@ -45,5 +47,14 @@ export const routes: Routes = [
     {
         path:"CL/requestchange",
         component: RequestChangeComponent
+    },
+    {
+        path:"Document/upload",
+        component: UploadDocComponent
+    },
+    {
+        path:"Document/download",
+        component:DownloadDocComponent
     }
+    
 ];
