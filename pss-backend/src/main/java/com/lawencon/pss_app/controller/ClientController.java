@@ -51,6 +51,13 @@ public class ClientController {
 	
 	@PostMapping("/requestchange")
 	public ResponseEntity<ReqChangeResDto> requestChange(@RequestBody ReqChangeReqDto reqDto) {
+        Notification notification = new Notification();
+        notification.setMessage("Client would like to move date from " + reqDto.getDateId() + " to " + reqDto.getNewDate());
+        notification.setSendAt(Timestamp.valueOf(LocalDateTime.now()));   
+        notification.setReceiver(null); // <------------- FIX
+        notification.setSender(null);
+        notification.setIsRead(false);
+        notificationService.create(notification);
         ReqChangeResDto result = changeRequestService.processChangeRequest(reqDto);
         return new ResponseEntity<ReqChangeResDto>(result, HttpStatus.CREATED);
     }
