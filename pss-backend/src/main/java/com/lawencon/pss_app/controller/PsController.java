@@ -1,5 +1,8 @@
 package com.lawencon.pss_app.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,8 +16,11 @@ import com.lawencon.pss_app.dto.reqchange.GetChangeReqDto;
 import com.lawencon.pss_app.dto.reqchange.GetChangeResDto;
 import com.lawencon.pss_app.dto.reqchange.UpdateChangeReqDto;
 import com.lawencon.pss_app.dto.reqchange.UpdateChangeResDto;
+import com.lawencon.pss_app.model.Notification;
 import com.lawencon.pss_app.service.CalendarService;
 import com.lawencon.pss_app.service.ChangeRequestService;
+import com.lawencon.pss_app.service.NotificationService;
+import com.lawencon.pss_app.service.UserService;
 
 @RestController
 @RequestMapping("/CL")
@@ -22,11 +28,17 @@ public class PsController {
 	
 	private final CalendarService calendarService;
 	private ChangeRequestService changeRequestService;
+	private NotificationService notificationService;
+	private UserService userService;
 	
 	public PsController(CalendarService calendarService,
-			ChangeRequestService changeRequestService) {
+			ChangeRequestService changeRequestService, 
+			NotificationService notificationService,
+			UserService userService) {
 		this.calendarService = calendarService;
 		this.changeRequestService = changeRequestService;
+		this.notificationService = notificationService;
+		this.userService = userService;
 	}
 
 	@PostMapping("/createschedule")
