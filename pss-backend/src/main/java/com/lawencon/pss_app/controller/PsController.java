@@ -31,12 +31,26 @@ public class PsController {
 
 	@PostMapping("/createschedule")
 	public ResponseEntity<CreateScheduleResDto> createSchedule(@RequestBody CreateScheduleReqDto param){
+        Notification notification = new Notification();
+        notification.setMessage("New schedule and deadlines created for " + param.getMonthYear());
+        notification.setSendAt(Timestamp.valueOf(LocalDateTime.now()));   
+        notification.setReceiver(userService.getByEmail((param.getUserEmail())));
+        notification.setSender(null);
+        notification.setIsRead(false);
+        notificationService.create(notification);
 		CreateScheduleResDto result = calendarService.createScheduleAndDates(param);
 		return new ResponseEntity<CreateScheduleResDto>(result, HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/updatechangereq")
     public ResponseEntity<UpdateChangeResDto> updateChangeRequest(@RequestBody UpdateChangeReqDto requestDto) {
+        Notification notification = new Notification();
+        notification.setMessage("Received update change request");
+        notification.setSendAt(Timestamp.valueOf(LocalDateTime.now()));   
+        notification.setReceiver(null); // <------------- FIX
+        notification.setSender(null);
+        notification.setIsRead(false);
+        notificationService.create(notification);
         UpdateChangeResDto responseDto = changeRequestService.updateReqChange(requestDto);
         return ResponseEntity.ok(responseDto);
     }
