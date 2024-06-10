@@ -8,4 +8,5 @@ public interface ClientAssignmentService {
 	AssignUserResDto createAssignment(Long clId, Long psId);
 
 	ClientAssignment getByClient(User user);
+	List<ClientAssignment> getByPs(User user);
 }
