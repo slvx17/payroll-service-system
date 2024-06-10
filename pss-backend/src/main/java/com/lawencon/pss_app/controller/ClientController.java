@@ -1,5 +1,8 @@
 package com.lawencon.pss_app.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,10 +20,12 @@ import com.lawencon.pss_app.dto.reqchange.EventResDto;
 import com.lawencon.pss_app.dto.reqchange.ReqChangeReqDto;
 import com.lawencon.pss_app.dto.reqchange.ReqChangeResDto;
 import com.lawencon.pss_app.model.ClientAssignment;
+import com.lawencon.pss_app.model.Notification;
 import com.lawencon.pss_app.model.User;
 import com.lawencon.pss_app.service.CalendarService;
 import com.lawencon.pss_app.service.ChangeRequestService;
 import com.lawencon.pss_app.service.ClientAssignmentService;
+import com.lawencon.pss_app.service.NotificationService;
 import com.lawencon.pss_app.service.UserService;
 
 @RestController
@@ -31,16 +36,19 @@ public class ClientController {
 	private ChangeRequestService changeRequestService;
 	private UserService userService;
 	private ClientAssignmentService assignmentService;
+	private NotificationService notificationService;
 	
 	public ClientController(
 			ChangeRequestService changeRequestService, 
 			CalendarService calendarService,
 			UserService userService,
-			ClientAssignmentService assignmentService) {
+			ClientAssignmentService assignmentService,
+			NotificationService notificationService) {
 		this.calendarService = calendarService;
 		this.changeRequestService = changeRequestService;
 		this.userService = userService;
 		this.assignmentService = assignmentService;
+		this.notificationService = notificationService;
 	}
 	
 	@PostMapping("/getCalendar")
