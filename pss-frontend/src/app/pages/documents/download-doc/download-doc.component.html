@@ -1,21 +1,28 @@
 <app-navbar></app-navbar>
 <p>Please upload the required file</p>
 
-<p-dropdown 
-  [options]="events" 
-  [(ngModel)]="selectedEvent" 
-  optionLabel="name" 
-  placeholder="Select an Event to Upload Document"
-  optionValue="code">
-</p-dropdown>
 
+<p-calendar 
+    [(ngModel)]="date" 
+    view="month" 
+    dateFormat="mm/yy" 
+    [yearNavigator]="true" 
+    yearRange="2010:2030" 
+    placeholder="Select Month and Year"
+    [selectOtherMonths]="true" 
+    >
+  </p-calendar>
 
-<p-fileUpload 
-    mode="basic" 
-    chooseLabel="Choose" 
-    chooseIcon="pi pi-upload"
-    name="demo[]" 
-    url="https://www.primefaces.org/cdn/api/upload.php" 
-    accept="image/*" 
-    maxFileSize="1000000" 
-    (onUpload)="onUpload($event)" />
+  <p-dropdown 
+    [options]="events" 
+    [(ngModel)]="selectedEvent" 
+    optionLabel="name" 
+    placeholder="Select an Event"
+    optionValue="code">
+  </p-dropdown>
+
+  <button pButton 
+          type="button" 
+          label="Download" 
+          (click)="downloadDocument()">
+  </button>

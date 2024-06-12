@@ -11,6 +11,7 @@ import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import com.lawencon.pss_app.config.SftpConfig;
 import com.lawencon.pss_app.constant.RoleEnum;
+import com.lawencon.pss_app.dao.DateDao;
 import com.lawencon.pss_app.dao.DocumentDao;
 import com.lawencon.pss_app.dao.FileDao;
 import com.lawencon.pss_app.dao.UserDao;
@@ -29,15 +30,17 @@ public class SftpServiceImpl implements SftpService {
 	private FileDao fileDao;
 	private DocumentDao documentDao;
 	private UserDao userDao;
+	private DateDao dateDao;
 	private FileHelper fileHelper;
 	
 	public SftpServiceImpl(SftpConfig sftpConfig, FileDao fileDao, DocumentDao documentDao, FileHelper fileHelper, 
-			UserDao userDao) {
+			UserDao userDao, DateDao dateDao) {
 		this.sftpConfig = sftpConfig;
 		this.fileDao = fileDao;
 		this.documentDao = documentDao;
 		this.fileHelper = fileHelper;
 		this.userDao = userDao;
+		this.dateDao = dateDao;
 	}
 
 	@Override
@@ -54,10 +57,10 @@ public class SftpServiceImpl implements SftpService {
     
 	@Override
     @Transactional
-    public void uploadFile(String localFilePath, String remoteFilePath, User user) throws Exception {
+    public void uploadFile(String localFilePath, String remoteFilePath, User user, Long dateId) throws Exception {
     	ChannelSftp channelSftp = setupJsch();
     	
-    	System.out.println(localFilePath + " " + remoteFilePath);
+//    	System.out.println(localFilePath + " " + remoteFilePath);
     	
         channelSftp.put(localFilePath, remoteFilePath);
         
@@ -73,6 +76,7 @@ public class SftpServiceImpl implements SftpService {
         document.setUploadedBy(user);
         document.setUploadedAt(LocalDateTime.now());
         document.setFile(file);
+        document.setDate(dateDao.findById(dateId));
         document.setDownloaded(false);
         documentDao.create(document);
     }
