@@ -12,7 +12,7 @@ public interface SftpService {
 
 	ChannelSftp setupJsch() throws Exception;
 
-	void uploadFile(String localFilePath, String remoteFilePath, User user) throws Exception;
+	void uploadFile(String localFilePath, String remoteFilePath, User user, Long dateId) throws Exception;
 
 	File downloadFile(String remoteFilePath, String localFilePath, User user) throws Exception;
 

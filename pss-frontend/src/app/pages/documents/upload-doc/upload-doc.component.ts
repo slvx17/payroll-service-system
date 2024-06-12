@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../navbar/navbar.component';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { ClientService } from '../../../service/client.service';
+import { FileService } from '../../../service/File.service';
+import { EventResDto } from '../../../dto/requestchange/event-res.dto';
+import { EventReqDto } from '../../../dto/requestchange/event-req.dto';
+import { FileUploadModule } from 'primeng/fileupload';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
   selector: 'app-upload-doc',
@@ -11,24 +17,68 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     ButtonModule,
     DropdownModule,
-    FormsModule
+    FormsModule,
+    FileUploadModule,
+    CalendarModule
   ],
   templateUrl: './upload-doc.component.html',
-  styleUrl: './upload-doc.component.css'
+  styleUrls: ['./upload-doc.component.css']
 })
-export class UploadDocComponent {
+export class UploadDocComponent implements OnInit {
+  fileToUpload: File | null = null;
+  selectedEvent: any = null;
+  events: any[] = [];  // Now an empty array, to be filled by backend data
+  date: String = "06-2024"
 
-  downloadDocument() {
-    window.location.href = 'https://www.example.com/path/to/document.pdf';
+  private deadlineTypeMapping: { [key: number]: string } = {
+    1: 'Send Data',
+    2: 'Payroll Report',
+    3: 'Bank Upload',
+    4: 'Payroll Journal',
+    5: 'Paid Out'
+  };
+
+  constructor(private fileService: FileService, private clientService: ClientService) {}
+
+  ngOnInit(): void {
+    this.loadEvents();
   }
 
-  events = [
-    { name: 'Send Data', code: 'send-data' },
-    { name: 'Payroll Report', code: 'payroll-report' },
-    { name: 'Bank Upload', code: 'bank-upload' },
-    { name: 'Payroll Journal', code: 'payroll-journal' },
-    { name: 'Paid Out', code: 'paid-out' }
-  ];
+  loadEvents() {
+    console.log("it's running");
+    const reqDto = new EventReqDto(); 
+    this.clientService.getEvents(reqDto).subscribe({
+      next: (response: EventResDto) => {
+        this.events = response.events.map(detail => ({
+          name: this.deadlineTypeMapping[detail.deadlineType],
+          code: detail.deadlineType
+        }));
+      },
+      error: (error) => {
+        console.error('Error fetching events:', error);
+      }
+    });
+  }
 
-  selectedEvent: any = null;
+  onFileSelect(event: any) {
+    if (event.target.files.length > 0) {
+      this.fileToUpload = event.target.files[0];
+    }
+  }
+
+  uploadDocument() {
+    if (this.fileToUpload && this.selectedEvent) {
+      const email = localStorage.getItem("email") || "default@email.com";
+      this.fileService.uploadFile(this.fileToUpload, email, this.selectedEvent.code).subscribe({
+        next: (response) => {
+          alert('File uploaded successfully!');
+        },
+        error: (error) => {
+          alert('Error uploading file: ' + error);
+        }
+      });
+    } else {
+      alert('Please select a file and event.');
+    }
+  }
 }

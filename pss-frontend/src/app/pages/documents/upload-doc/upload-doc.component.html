@@ -1,18 +1,40 @@
 <app-navbar></app-navbar>
 
-<p>Please select a file to download</p>
+<div class="container">
+  <h2>Please select a file and an event for upload</h2>
 
-<p-dropdown 
-  [options]="events" 
-  [(ngModel)]="selectedEvent" 
-  optionLabel="name" 
-  placeholder="Select an Event to Download Document"
-  optionValue="code">
-</p-dropdown>
+  <p-calendar 
+    [(ngModel)]="date" 
+    view="month" 
+    dateFormat="mm/yy" 
+    [yearNavigator]="true" 
+    yearRange="2010:2030" 
+    placeholder="Select Month and Year"
+    [selectOtherMonths]="true" 
+    >
+  </p-calendar>
 
-<button pButton 
-        type="button" 
-        icon="pi pi-download" 
-        label="Download Document" 
-        (click)="downloadDocument()">
-</button>
+  <p-dropdown 
+    [options]="events" 
+    [(ngModel)]="selectedEvent" 
+    optionLabel="name" 
+    placeholder="Select an Event"
+    optionValue="code">
+  </p-dropdown>
+
+  <p-fileUpload 
+    mode="basic" 
+    name="file"
+    accept=".doc , .docx, .xls, .xlsx , .pdf"  
+    maxFileSize="1000000" 
+    (onSelect)="onFileSelect($event)"
+    chooseLabel="Choose File"
+    chooseIcon="pi pi-upload">
+  </p-fileUpload>
+
+  <button pButton 
+          type="button" 
+          label="Upload" 
+          (click)="uploadDocument()">
+  </button>
+</div>

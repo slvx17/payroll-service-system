@@ -92,6 +92,12 @@ export class NavbarComponent implements OnInit {
     const clItems: MenuItem[] = [
       ...commonItems,
       { label: 'View Calendar', icon: 'pi pi-calendar', routerLink: ['/CL/viewcalendar'] },
+      {
+        label: "Document", icon:"pi pi-file", items: [
+          { label: 'Upload', icon: 'pi pi-upload', routerLink: ['/Document/upload'] },
+          { label: 'Download', icon: 'pi pi-download', routerLink: ['/Document/download'] }
+        ]
+      },
       { label: 'Request Change', icon: 'pi pi-send', routerLink: ['/CL/requestchange'] },
     ]
 

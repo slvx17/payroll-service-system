@@ -2,22 +2,33 @@ package com.lawencon.pss_app.dto.fileops;
 
 import java.util.List;
 
-import com.lawencon.pss_app.model.Document;
-
 public class GetFileResDto {
-	List<Document> documents;
+	List<Long> docIds;
+	List<String> docNames;
+	
+	public GetFileResDto(List<Long> docIds, List<String> docNames) {
 
-	public GetFileResDto(List<Document> documents) {
-		this.documents = documents;
+		this.docIds = docIds;
+		this.docNames = docNames;
 	}
 
-	public List<Document> getDocuments() {
-		return documents;
+	public List<Long> getDocIds() {
+		return docIds;
 	}
 
-	public void setDocuments(List<Document> documents) {
-		this.documents = documents;
+	public void setDocIds(List<Long> docIds) {
+		this.docIds = docIds;
 	}
+
+	public List<String> getDocNames() {
+		return docNames;
+	}
+
+	public void setDocNames(List<String> docNames) {
+		this.docNames = docNames;
+	}
+	
+	
 	
 	
 }
