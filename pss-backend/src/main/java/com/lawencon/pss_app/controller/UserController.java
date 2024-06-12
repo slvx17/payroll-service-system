@@ -46,20 +46,20 @@ public class UserController {
 		Authentication auth = new UsernamePasswordAuthenticationToken(param.getEmail(), param.getPassword());
 	    authenticationManager.authenticate(auth);
 		
-		final Optional<User> userOptional = userService.getByEmail(param.getEmail());
+		final User user = userService.getByEmail(param.getEmail());
         final Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
         cal.add(Calendar.HOUR_OF_DAY, 1);
 
         final Map<String, Object> claims = new HashMap<>();
         claims.put("exp", cal.getTime());
-        claims.put("id", userOptional.get().getId());
+        claims.put("id", user.getId());
 		
 		LoginResDto result = new LoginResDto();
-		result.setId(userOptional.get().getId());		
+		result.setId(user.getId());		
 		result.setToken(jwtService.generateJwt(claims));
-		result.setEmail(userOptional.get().getEmail());
-		result.setRole(userOptional.get().getRole().getRoleCode());		
+		result.setEmail(user.getEmail());
+		result.setRole(user.getRole().getRoleCode());		
 		return new ResponseEntity<LoginResDto>(result, HttpStatus.CREATED);
 	}
 	

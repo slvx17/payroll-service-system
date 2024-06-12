@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UserResDto } from '../dto/user/user.dto';
 import { AssignUserResDto } from '../dto/assignment/assign-user-res.dto';
+import { EmailDto } from '../dto/email/email.dto';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,13 @@ export class AssignmentService {
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         });
         return this.http.get<UserResDto[]>(`${this.baseUrl}/getallps`, { headers });
+    }
+  
+    getAllCByPs(email: EmailDto): Observable<UserResDto[]> {
+        const headers = new HttpHeaders({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.post<UserResDto[]>(`${this.baseUrl}/getallcbyps`, email , { headers });
     }
 
     getClientByEmail(email: string): Observable<UserResDto> {

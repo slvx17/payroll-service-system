@@ -1,7 +1,18 @@
 package com.lawencon.pss_app.model;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.Optional;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="notifications")
@@ -11,8 +22,9 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @Column(name = "send_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime sendAt;
+    private Timestamp sendAt;
 
     @ManyToOne
     @JoinColumn(name = "sender_id")
@@ -39,11 +51,11 @@ public class Notification {
         this.id = id;
     }
 
-    public LocalDateTime getSendAt() {
+    public Timestamp getSendAt() {
         return sendAt;
     }
 
-    public void setSendAt(LocalDateTime sendAt) {
+    public void setSendAt(Timestamp sendAt) {
         this.sendAt = sendAt;
     }
 
@@ -59,8 +71,8 @@ public class Notification {
         return receiver;
     }
 
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
+    public void setReceiver(User optional) {
+        this.receiver = optional;
     }
 
     public String getMessage() {

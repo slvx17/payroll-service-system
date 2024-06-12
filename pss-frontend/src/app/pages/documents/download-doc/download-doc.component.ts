@@ -24,7 +24,7 @@ import { CalendarModule } from 'primeng/calendar';
 export class DownloadDocComponent {
 
   selectedEvent: any = null;
-  events: any[] = [];  // Now an empty array, to be filled by backend data
+  events: any[] = [];  
   date: String = "06-2024"
 
   private deadlineTypeMapping: { [key: number]: string } = {
@@ -58,6 +58,6 @@ export class DownloadDocComponent {
   }
 
   downloadDocument(){
-    
+
   }
 }

@@ -1,5 +1,7 @@
 package com.lawencon.pss_app.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,5 +42,10 @@ public class ClientAssignmentServiceImpl implements ClientAssignmentService {
 		ClientAssignment res = clientAssignmentDao.findByClient(user);
 		return res;
 	}
-
+	
+	@Override
+	public List<ClientAssignment> getByPs(User user) {
+		List<ClientAssignment> res = clientAssignmentDao.findByPs(user);
+		return res;
+	}
 }

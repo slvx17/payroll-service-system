@@ -21,6 +21,10 @@ public class ClientAssignmentDaoImpl implements ClientAssignmentDao {
 		return clientAssignmentRepo.findByClient(user);
 	}
 	@Override
+	public List<ClientAssignment> findByPs(User user) {
+		return clientAssignmentRepo.findByPs(user);
+	}
+	@Override
 	public ClientAssignment create(ClientAssignment clientAssignment) {
 		return clientAssignmentRepo.save(clientAssignment);
 	}

@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -42,9 +41,8 @@ public class UserServiceImpl implements UserService {
     }
     
     @Override
-	public Optional<User> getByEmail(String email){
-        User user = userDAO.findByEmail(email);
-        return Optional.ofNullable(user);
+	public User getByEmail(String email){
+        return userDAO.findByEmail(email);
     }
     
     @Override
