@@ -15,5 +15,7 @@ public interface NotificationService {
 	
 	Notification update(Notification notification);
 	
-	void delete(Long id);
+	void delete(String email);
+
+	List<NotificationResDto> checkDeadlines(String email);
 }

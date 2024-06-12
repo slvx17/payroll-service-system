@@ -39,4 +39,16 @@ public class NotificationController {
 		Notification result = notificationService.create(notification);
 		return ResponseEntity.ok(result);
 	}
+	
+	@PostMapping("/checkdeadlines")
+	public ResponseEntity<List<NotificationResDto>> checkDeadlines(@RequestBody EmailReqDto emailReq){
+		List<NotificationResDto> result = notificationService.checkDeadlines(emailReq.getEmail());
+		return ResponseEntity.ok(result);
+	}
+	
+	@PostMapping("/deleteall")
+	public ResponseEntity<NotificationResDto> deleteAllNotifications(@RequestBody EmailReqDto emailReq){
+		notificationService.delete(emailReq.getEmail());
+		return null;
+	}
 }

@@ -47,6 +47,10 @@ public class SecurityConfig {
 		matchers.add(new AntPathRequestMatcher("/register", HttpMethod.POST.name()));
 		matchers.add(new AntPathRequestMatcher("/document/upload", HttpMethod.POST.name()));
 		matchers.add(new AntPathRequestMatcher("/document/download", HttpMethod.GET.name()));
+		matchers.add(new AntPathRequestMatcher("/notification/create", HttpMethod.POST.name()));
+		matchers.add(new AntPathRequestMatcher("/notification/deleteall", HttpMethod.POST.name()));
+		matchers.add(new AntPathRequestMatcher("/notification/getall", HttpMethod.POST.name()));
+		
 		return matchers; 
 	}
 	

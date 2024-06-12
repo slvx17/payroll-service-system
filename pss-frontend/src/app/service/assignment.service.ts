@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UserResDto } from '../dto/user/user.dto';
 import { AssignUserResDto } from '../dto/assignment/assign-user-res.dto';
+import { EmailDto } from '../dto/email/email.dto';
 
 @Injectable({
     providedIn: 'root'

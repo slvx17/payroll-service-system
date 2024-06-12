@@ -16,5 +16,7 @@ public interface NotificationDao {
 	Notification findById(Long id);
 	
 	void delete(Long id);
+	
+	void deleteByUser(User user);
 
 }

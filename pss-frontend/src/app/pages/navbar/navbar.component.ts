@@ -99,6 +99,9 @@ export class NavbarComponent implements OnInit {
     else if(role=="SA")return saItems;
     else if(role=="PS") return psItems;
     else return commonItems;
+
+
+    this.checkForNotification();
   }
 
   showNotification(severity: string, summary: string, detail: string) {
@@ -107,6 +110,18 @@ export class NavbarComponent implements OnInit {
           console.log(res[i])
           this.messageService.add({ severity:"info", summary:"Notification", detail:res[i].message, life:9999999999 });
       }
+    }})
+    this.notificationService.notificationsDeleteAll(this.emailDto).subscribe(res => {{
+      console.log("This should be deleted already")
+    }})
+  }
+
+  checkForNotification(){
+    this.notificationService.notificationsCheckDeadlines(this.emailDto).subscribe(res => {{
+      for(let i = 0; i < res.length; i++){
+        console.log(res[i])
+        this.messageService.add({ severity:"info", summary:"Notification", detail:res[i].message, life:9999999999 });
+    }
     }})
   }
 }

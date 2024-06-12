@@ -22,4 +22,19 @@ export class NotificationService {
         // console.log(this.http.post<CalendarResDto>('http://localhost:8080/CL/getCalendar', dto))
         return this.http.post<NotificationResDto[]>(`${this.baseUrl}/getall`, dto, { headers })
     }
+
+    notificationsCheckDeadlines(dto: EmailDto): Observable<NotificationResDto[]>  {
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.token}`
+        });
+        // console.log(this.http.post<CalendarResDto>('http://localhost:8080/CL/getCalendar', dto))
+        return this.http.post<NotificationResDto[]>(`${this.baseUrl}/checkdeadlines`, dto, { headers })
+    }
+
+    notificationsDeleteAll(dto: EmailDto): Observable<NotificationResDto>  {
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${this.token}`
+        });
+        return this.http.post<NotificationResDto>(`${this.baseUrl}/deleteall`, dto, { headers })
+    }
 }

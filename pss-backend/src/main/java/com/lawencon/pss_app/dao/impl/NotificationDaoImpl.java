@@ -2,11 +2,14 @@ package com.lawencon.pss_app.dao.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.lawencon.pss_app.dao.NotificationDao;
 import com.lawencon.pss_app.model.Notification;
 import com.lawencon.pss_app.model.User;
 import com.lawencon.pss_app.repo.NotificationRepo;
 
+@Repository
 public class NotificationDaoImpl implements NotificationDao{
 	private final NotificationRepo notificationRepo;
 
@@ -37,5 +40,11 @@ public class NotificationDaoImpl implements NotificationDao{
 	@Override
 	public void delete(Long id) {
 		notificationRepo.deleteById(id);
+	}
+
+	@Override
+	public void deleteByUser(User user) {
+		notificationRepo.deleteByReceiver(user);
+		
 	}
 }
