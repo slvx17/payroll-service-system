@@ -84,7 +84,12 @@ export class NavbarComponent implements OnInit {
     const psItems: MenuItem[] = [
       ...commonItems,
       { label: 'Client Schedules', icon: 'pi pi-calendar', routerLink: ['/PS/calendarview'] },
-      { label: 'Documents', icon: 'pi pi-file', routerLink: ['/client-calendar'] },
+      {
+        label: "Document", icon:"pi pi-file", items: [
+          { label: 'Upload', icon: 'pi pi-upload', routerLink: ['/Document/upload'] },
+          { label: 'Download', icon: 'pi pi-download', routerLink: ['/Document/download'] }
+        ]
+      },
       { label: 'Create Client Schedule', icon: 'pi pi-calendar-plus', routerLink: ['/PS/createschedule'] },
       { label: 'Schedule Change Approval', icon: 'pi pi-check-circle', routerLink: ['/PS/schedulechangeapproval'] },
     ]
