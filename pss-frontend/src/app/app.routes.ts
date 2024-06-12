@@ -20,10 +20,6 @@ export const routes: Routes = [
         component: LoginComponent,
     }, { path: '', redirectTo: '/login', pathMatch: 'full' }, 
     {
-        path: "PS/dashboard",
-        component: PsDashboardComponent
-    },
-    {
         path:"SA/createuser",
         component: CreateUserComponent
     }
@@ -32,6 +28,7 @@ export const routes: Routes = [
         path:"SA/assignuser",
         component: AssignUserComponent
     },
+    { path: 'PS/dashboard', redirectTo: "PS/createschedule", pathMatch: 'full' }, 
     {
         path:"PS/createschedule",
         component: CreateScheduleComponent
@@ -43,6 +40,10 @@ export const routes: Routes = [
     {
         path:"PS/calendarview",
         component: PSCalendarViewComponent
+    },
+    {
+        path:"chat",
+        component: PsDashboardComponent
     },
     {
         path:"CL/viewcalendar",
